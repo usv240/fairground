@@ -1,26 +1,150 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Fairground — civic paper & forest */
+  --color-paper: #faf7f1;
+  --color-paper-warm: #f3eee4;
+  --color-card: #fffdf9;
+  --color-ink: #1d2420;
+  --color-ink-soft: #4c5750;
+  --color-ink-faint: #8a9189;
+  --color-forest: #1e4d3b;
+  --color-forest-deep: #143528;
+  --color-forest-tint: #e7efe9;
+  --color-brass: #a97e2f;
+  --color-brass-tint: #f5ecd9;
+  --color-clay: #a4442f;
+  --color-clay-tint: #f7e8e3;
+  --color-line: #e4ddcd;
+  --color-line-soft: #eee8da;
+
+  --font-display: var(--font-display), "Georgia", serif;
+  --font-body: var(--font-body), system-ui, sans-serif;
+
+  --shadow-card: 0 1px 2px rgb(29 36 32 / 0.04), 0 4px 16px rgb(29 36 32 / 0.05);
+  --shadow-lift: 0 2px 4px rgb(29 36 32 / 0.06), 0 12px 32px rgb(29 36 32 / 0.10);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+::selection {
+  background: #d8e6dd;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-feature-settings: "ss01", "cv05";
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Small-caps section labels */
+.overline-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+
+/* Hairline card */
+.card {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.625rem 1.125rem;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.btn-primary {
+  background: var(--color-forest);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--color-forest-deep);
+}
+.btn-secondary {
+  background: transparent;
+  color: var(--color-forest);
+  border-color: var(--color-forest);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--color-forest-tint);
+}
+.btn-quiet {
+  background: transparent;
+  color: var(--color-ink-soft);
+  border-color: var(--color-line);
+}
+.btn-quiet:hover:not(:disabled) {
+  background: var(--color-paper-warm);
+}
+
+/* Form fields */
+.field {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--color-line);
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.9375rem;
+  color: var(--color-ink);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.field:focus {
+  border-color: var(--color-forest);
+  box-shadow: 0 0 0 3px rgb(30 77 59 / 0.12);
+}
+.field::placeholder {
+  color: var(--color-ink-faint);
+}
+
+/* Phase stepper */
+.step-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+}
+
+/* Sealed-offer envelope pulse */
+@keyframes sealPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+.seal-pulse {
+  animation: sealPulse 2.4s ease-in-out infinite;
+}
+
+/* Print: only the agreement sheet */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .print-sheet, .print-sheet * {
+    visibility: visible;
+  }
+  .print-sheet {
+    position: absolute;
+    inset: 0;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
 }
