@@ -1,13 +1,17 @@
 import { Redis } from "@upstash/redis";
 import { DisputeCase } from "./types";
 
-// Storage: Upstash Redis in production (set UPSTASH_REDIS_REST_URL and
-// UPSTASH_REDIS_REST_TOKEN), in-memory Map during local development.
+// Storage: Upstash Redis in production, in-memory Map during local development.
+// Accepts both direct Upstash env names (UPSTASH_REDIS_REST_*) and the names
+// injected by the Vercel Marketplace integration (KV_REST_API_*).
 
-const hasRedis =
-  !!process.env.UPSTASH_REDIS_REST_URL && !!process.env.UPSTASH_REDIS_REST_TOKEN;
+const redisUrl =
+  process.env.UPSTASH_REDIS_REST_URL ?? process.env.KV_REST_API_URL;
+const redisToken =
+  process.env.UPSTASH_REDIS_REST_TOKEN ?? process.env.KV_REST_API_TOKEN;
 
-const redis = hasRedis ? Redis.fromEnv() : null;
+const redis =
+  redisUrl && redisToken ? new Redis({ url: redisUrl, token: redisToken }) : null;
 
 const globalStore = globalThis as unknown as { __fairgroundCases?: Map<string, DisputeCase> };
 const memory = (globalStore.__fairgroundCases ??= new Map<string, DisputeCase>());
