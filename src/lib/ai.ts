@@ -189,11 +189,11 @@ export async function opponentPersona(c: DisputeCase) {
       model: openai()(MODEL),
       schema: z.object({
         story: z.string().describe("The respondent's plausible 3-5 sentence account of events, pushing back on parts of the claim without being cartoonish"),
-        ceilingFraction: z.number().min(0.5).max(0.9).describe("The maximum fraction of the claim this respondent would realistically pay to settle, given the record"),
+        ceilingFraction: z.number().min(0.6).max(0.9).describe("The maximum fraction of the claim this respondent would realistically pay to settle, given the record. Stronger claimant evidence means a higher fraction."),
         style: z.string().describe("2-4 word negotiation style, e.g. 'firm but pragmatic'"),
       }),
       system:
-        "You create a realistic opposing party for a dispute-settlement practice simulation. The persona disputes the claim in ways that fit the category and record — a plausible counterpart, not a villain.",
+        "You create a realistic opposing party for a dispute-settlement practice simulation. The persona disputes the claim in ways that fit the category and record — a plausible counterpart, not a villain. It negotiates firmly but is ultimately settlement-capable: it would rather pay a fair number than go to court.",
       prompt: publicRecord(c),
     });
     return {

@@ -107,9 +107,11 @@ export async function POST(
       const prop = c.mediatorProposals[c.mediatorProposals.length - 1];
       const ceiling = c.mandates.respondent?.limit ?? Math.round(c.claim.amount * 0.72);
       if (prop && prop.responses.claimant && !prop.responses.respondent) {
-        // Slightly settlement-inclined: a practice counterpart that stretches a
-        // little past its ceiling for a neutral proposal, like most real parties.
-        const decision = prop.amount <= Math.round(ceiling * 1.12) ? "accept" : "decline";
+        // Slightly settlement-inclined: a practice counterpart stretches past its
+        // ceiling for a neutral proposal — and further for the final one, the way
+        // real parties stretch at the courthouse steps.
+        const stretch = c.mediatorProposals.length >= 2 ? 1.25 : 1.12;
+        const decision = prop.amount <= Math.round(ceiling * stretch) ? "accept" : "decline";
         prop.responses.respondent = decision;
         log(c, "respondent", `Respondent (practice AI) ${decision === "accept" ? "accepted" : "declined"} the mediator's proposal of $${prop.amount}.`);
         if (decision === "accept" && prop.responses.claimant === "accept") {
