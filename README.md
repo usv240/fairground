@@ -86,6 +86,27 @@ Landing page additionally registers `open_dispute` (with `practice_mode`), `list
 - **AI** (Vercel AI SDK + OpenAI): neutral mediator (numerically hard-clamped between the parties' last sealed positions), private reality checks, plain-language agreement drafting, and the practice-mode counterpart. **Every AI feature has a deterministic fallback** — the product never dead-ends without a key.
 - **Humans without agents**: every single step also works by hand in the UI. The agent makes it effortless; it is never required.
 
+## Verified tool surface
+
+Two automated checks live in [`scripts/`](scripts/):
+
+- **`smoke.sh`** drives a complete case through the API — evidence → serve → AI response → mandate guards (asserts that bidding before a mandate, and bidding beyond it, are refused) → three sealed rounds → mediation → acceptance → drafting → signatures → resolved — and asserts role-privacy (a party's view contains only its own offers; invalid keys are rejected).
+- **`verify-toolsurface.mjs`** stubs `document.modelContext` in headless Chrome and asserts the registration lifecycle. Actual output:
+
+```
+LANDING:            how_fairground_works, list_my_cases, open_dispute
+CLAIMANT · INTAKE:  add_evidence, get_case_status, how_fairground_works,
+                    send_claim_to_respondent, update_claim
+CLAIMANT · NEGOTIATION: get_case_status, get_negotiation_state, get_reality_check,
+                    how_fairground_works, request_mediation,
+                    send_message_to_other_party, set_negotiation_mandate,
+                    submit_sealed_offer
+INVARIANTS: missing=none · illegal-present=none
+ANNOTATIONS: {"statusRO":true,"stateRO":true,"offerNotRO":true}
+```
+
+Note what happened between intake and negotiation: the intake tools **unregistered themselves** (the hook aborts their registration when `enabled` flips) and the negotiation set appeared — and at no point does any signing tool exist. The procedure really is the tool surface.
+
 ## Run it
 
 ```bash
