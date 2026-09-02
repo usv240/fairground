@@ -95,8 +95,10 @@ export default function Landing() {
             <span className="text-ink font-medium">Minutes, not months.</span>
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <a href="#start" className="btn btn-primary text-base px-6 py-3">Start a real case</a>
-            <a href="#start" onClick={() => setPractice(true)} className="btn btn-secondary text-base px-6 py-3">
+            <a href="#start" onClick={() => setPractice(false)} className="btn btn-primary text-base px-6 py-3">
+              Start a real case
+            </a>
+            <a href="#demos" className="btn btn-secondary text-base px-6 py-3">
               Rehearse against an AI counterpart
             </a>
           </div>
