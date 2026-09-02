@@ -403,8 +403,9 @@ function MediationPanel({
           </p>
           <button className="btn btn-primary mt-4" disabled={busy}
             onClick={() => run(() => apiAi(caseId, accessKey, "mediator_propose"))}>
-            {declined ? "Request final proposal" : "Bring in the mediator"}
+            {busy ? "The mediator is reviewing the full record…" : declined ? "Request final proposal" : "Bring in the mediator"}
           </button>
+          {busy && <p className="mt-2 text-xs text-ink-faint seal-pulse">Weighing evidence, sealed history, and both accounts — usually 10–20 seconds.</p>}
         </>
       ) : (
         <>
@@ -463,7 +464,7 @@ function AgreementPanel({
         </p>
         <button className="btn btn-primary mt-4" disabled={busy}
           onClick={() => run(() => apiAi(caseId, accessKey, "draft_agreement"))}>
-          Draft the agreement
+          {busy ? "Drafting in plain language…" : "Draft the agreement"}
         </button>
       </div>
     );

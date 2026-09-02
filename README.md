@@ -107,6 +107,20 @@ ANNOTATIONS: {"statusRO":true,"stateRO":true,"offerNotRO":true}
 
 Note what happened between intake and negotiation: the intake tools **unregistered themselves** (the hook aborts their registration when `enabled` flips) and the negotiation set appeared — and at no point does any signing tool exist. The procedure really is the tool surface.
 
+- **`eval-toolpicking.mjs`** goes further: it harvests the **live** tool surface from the running pages (per role and phase), hands it to `gpt-5-mini` as function definitions, and runs realistic user asks through a mini agent loop (intermediate read tools are executed live in the page). Actual results:
+
+```
+PASS  landing → open practice dispute      chain: open_dispute
+PASS  intake → file evidence               chain: add_evidence
+PASS  negotiation → set private mandate    chain: get_case_status → set_negotiation_mandate
+                                           args: {"limit":1400,"priorities":"Speed matters more than the last $100…"}
+PASS  negotiation → check state            chain: get_case_status
+PASS  respondent → review the claim        chain: get_case_status
+5/5 scenarios passed (model: gpt-5-mini)
+```
+
+The mandate scenario is the one to look at: from *"I won't accept less than $1,400 — but getting this done fast matters more than the last hundred dollars"*, the agent oriented itself, picked the right tool, and encoded both the number and the priority faithfully.
+
 ## Run it
 
 ```bash
