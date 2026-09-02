@@ -27,7 +27,7 @@ Agent asks for the mandate; answer: *"Don't go below $1,400 — but speed matter
 
 Then click **⚡ Let the agents negotiate** and let the rounds fire on their own.
 
-> "My floor goes only to MY agent — the site structurally cannot show it to the other side. Now both agents trade sealed envelopes. If they overlap — instant settlement at the midpoint. Watch: no overlap, and all either side learns is that the gap narrowed. And notice — if my agent tried to bid below my floor, the platform refuses it and sends it back to ask me first. The tools themselves enforce the procedure: there is no tool to peek, no tool to skip ahead…"
+> "My floor goes only to MY agent — the site structurally cannot show it to the other side. Now both agents trade sealed envelopes. If they overlap — instant settlement at the midpoint. Watch: no overlap, and all either side learns is that the gap narrowed. And notice — if my agent tried to bid below my floor, the platform refuses it, and if the agent insists, an approval card appears that only I can click. The tools themselves enforce the procedure: there is no tool to peek, no tool to skip ahead…"
 
 ### 1:55–2:25 — Mediation → the human signature (the thesis)
 
@@ -39,7 +39,7 @@ Type your name, click **Sign agreement**. Counterpart countersigns. RESOLVED ban
 
 ### 2:25–2:55 — Close (over the resolved case / landing)
 
-> "Nine minutes, not nine months. Built entirely on WebMCP: twenty-one tools that appear and disappear with each side's role and the phase of the case — due process, enforced by tool availability. Two humans, two adversarial agents, one neutral page. That's a kind of fairness the web has never been able to offer — until websites could hand agents governed tools. Fairground."
+> "Nine minutes, not nine months. Built entirely on WebMCP: twenty-three tools that appear and disappear with each side's role and the phase of the case — due process, enforced by tool availability. Two humans, two adversarial agents, one neutral page. That's a kind of fairness the web has never been able to offer — until websites could hand agents governed tools. Fairground."
 
 ---
 
