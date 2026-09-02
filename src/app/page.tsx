@@ -73,7 +73,7 @@ export default function Landing() {
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
         <span className="font-display text-xl tracking-tight text-forest">⚖️ Fairground</span>
         <div className="flex items-center gap-5 text-sm">
-          <a href="#demos" className="text-ink-soft hover:text-ink">1-click demos</a>
+          <a href="#demos" className="text-ink-soft hover:text-ink">Try it</a>
           <a href="#how" className="text-ink-soft hover:text-ink">How it works</a>
           <a href="#agents" className="text-ink-soft hover:text-ink">For agents</a>
           <a href="#start" className="btn btn-primary py-2">Start a case</a>
@@ -88,58 +88,31 @@ export default function Landing() {
             Justice, for disputes too small for lawyers.
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
-            The unpaid invoice. The withheld deposit. The refund that never came. Pursuing an everyday
-            dispute usually costs more than the money at stake, so most people simply give up.
-            Fairground is a neutral online table where <span className="text-ink font-medium">both sides
-            bring their own AI advocate</span>, offers stay sealed, a neutral mediator can step in, and{" "}
-            <span className="text-ink font-medium">only humans can sign</span> the final agreement.{" "}
+            The unpaid invoice. The withheld deposit. The refund that never came. Chasing them usually
+            costs more than they are worth, so most people give up. Fairground is a neutral table where{" "}
+            <span className="text-ink font-medium">each side brings its own AI advocate</span>, offers
+            stay sealed, and <span className="text-ink font-medium">only humans can sign</span>.{" "}
             <span className="text-ink font-medium">Minutes, not months.</span>
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <a href="#start" onClick={() => setPractice(false)} className="btn btn-primary text-base px-6 py-3">
               Start a real case
             </a>
-            <a href="#demos" className="btn btn-secondary text-base px-6 py-3">
-              Rehearse against an AI counterpart
+            <a href="#how" className="btn btn-secondary text-base px-6 py-3">
+              See how it works
             </a>
           </div>
           <div className="mt-6 max-w-xl"><WebMCPBadge /></div>
         </div>
       </header>
 
-      {/* The problem */}
-      <section className="border-y border-line bg-paper-warm">
-        <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-10 sm:grid-cols-3 sm:px-6">
-          <Stat big="92%" text="of low-income Americans' civil legal problems get no meaningful legal help: the “justice gap.” (Legal Services Corporation)" />
-          <Stat big="71%" text="of freelancers have struggled to collect payment at least once; most simply write it off. (Freelancers Union)" />
-          <Stat big="60M+" text="disputes a year are already resolved by software at eBay alone. Structured resolution works at scale." />
-        </div>
-      </section>
-
-      {/* The Docket — live aggregates from the platform itself */}
-      {docket && docket.resolved > 0 && (
-        <section aria-label="Live platform statistics" className="mx-auto w-full max-w-6xl px-4 pt-10 sm:px-6">
-          <div className="card flex flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 py-4">
-            <p className="overline-label text-brass">The docket · live</p>
-            <p className="text-sm text-ink-soft">
-              <span className="font-display text-xl text-forest">{docket.resolved.toLocaleString()}</span> settlement{docket.resolved === 1 ? "" : "s"} signed
-              <span className="mx-3 text-line">|</span>
-              <span className="font-display text-xl text-forest">${docket.dollars.toLocaleString()}</span> resolved
-              <span className="mx-3 text-line">|</span>
-              <span className="font-display text-xl text-forest">{docket.avgMinutes.toLocaleString()}</span> min average, open to signed
-            </p>
-            <p className="text-[11px] text-ink-faint">includes practice &amp; simulated cases</p>
-          </div>
-        </section>
-      )}
-
       {/* One-click demos */}
       <section id="demos" className="mx-auto w-full max-w-6xl px-4 pt-14 sm:px-6">
         <p className="overline-label">One click, no typing</p>
         <h2 className="font-display mt-2 text-3xl tracking-tight">Step into a case</h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
-          Each button opens a fresh, fully staged practice case, evidence and all, at a different moment
-          in the process. Bring your agent, or click around by hand.
+          Each button opens a fresh practice case at a different moment in the process. Nothing to
+          type, and nothing at stake.
         </p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
           <DemoCard
@@ -169,6 +142,32 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* The Docket — live aggregates from the platform itself */}
+      {docket && docket.resolved > 0 && (
+        <section aria-label="Live platform statistics" className="mx-auto w-full max-w-6xl px-4 pt-10 sm:px-6">
+          <div className="card flex flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 py-4">
+            <p className="overline-label text-brass">The docket · live</p>
+            <p className="text-sm text-ink-soft">
+              <span className="font-display text-xl text-forest">{docket.resolved.toLocaleString()}</span> settlement{docket.resolved === 1 ? "" : "s"} signed
+              <span className="mx-3 text-line">|</span>
+              <span className="font-display text-xl text-forest">${docket.dollars.toLocaleString()}</span> resolved
+              <span className="mx-3 text-line">|</span>
+              <span className="font-display text-xl text-forest">{docket.avgMinutes.toLocaleString()}</span> min average, open to signed
+            </p>
+            <p className="text-[11px] text-ink-faint">includes practice &amp; simulated cases</p>
+          </div>
+        </section>
+      )}
+
+      {/* The problem */}
+      <section className="border-y border-line bg-paper-warm">
+        <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-10 sm:grid-cols-3 sm:px-6">
+          <Stat big="92%" text="of low-income Americans' civil legal problems get no meaningful legal help: the “justice gap.” (Legal Services Corporation)" />
+          <Stat big="71%" text="of freelancers have struggled to collect payment at least once; most simply write it off. (Freelancers Union)" />
+          <Stat big="60M+" text="disputes a year are already resolved by software at eBay alone. Structured resolution works at scale." />
+        </div>
+      </section>
+
       {/* How it works */}
       <section id="how" className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
         <p className="overline-label">How it works</p>
@@ -192,15 +191,15 @@ export default function Landing() {
           <div className="mt-8 grid gap-8 md:grid-cols-3">
             <Principle
               title="Due process, enforced by design"
-              text="Each side's agent sees only the tools that are procedurally legal for its role in the current phase. You cannot skip the response. You cannot bid before your human sets a mandate. The tools change as the case advances. That is WebMCP's dynamic tool surface doing the work of a courtroom clerk."
+              text="Each side's agent sees only the tools that are procedurally legal for its role and phase, and the set changes as the case advances. The tool surface does a courtroom clerk's job."
             />
             <Principle
               title="Secrets that stay secret"
-              text="Your walk-away number lives between you and your agent. The server structurally filters each side's view: no tool exists that could leak a sealed offer or a private mandate to the other side, or to a prompt-injected agent."
+              text="Your walk-away number lives between you and your own agent. The server filters each side's view, so no tool exists that could leak it to the other side, even to a prompt-injected agent."
             />
             <Principle
               title="The signature is human"
-              text="Fairground deliberately registers no signing tool. Agents argue, assess, and negotiate; the moment of consent belongs to people. That line, drawn in the tool surface itself, is our answer to what the agentic web should feel like."
+              text="There is no signing tool. Agents argue, assess, and negotiate; the moment of consent belongs to people. That line is drawn in the tool surface itself."
             />
           </div>
         </div>
