@@ -21,9 +21,11 @@ Type into the agent panel:
 
 > "In a real case, the other party gets a link and their OWN agent — which reads the record and tells them honestly: 'you'd probably lose, settling is cheaper.' Here, a practice counterpart plays their side. It disputes the claim — and now we negotiate."
 
-### 1:15–1:55 — Sealed offers (the WebMCP moment #2)
+### 1:15–1:55 — Sealed offers + Autopilot (the WebMCP moment #2)
 
 Agent asks for the mandate; answer: *"Don't go below $1,400 — but speed matters more than the last hundred."*
+
+Then click **⚡ Let the agents negotiate** and let the rounds fire on their own.
 
 > "My floor goes only to MY agent — the site structurally cannot show it to the other side. Now both agents trade sealed envelopes. If they overlap — instant settlement at the midpoint. Watch: no overlap, and all either side learns is that the gap narrowed. And notice — if my agent tried to bid below my floor, the platform refuses it and sends it back to ask me first. The tools themselves enforce the procedure: there is no tool to peek, no tool to skip ahead…"
 

@@ -32,7 +32,7 @@ React components register tools with Chrome's `use-webmcp-tool` hook; the `enabl
 
 ## Testing instructions (for judges)
 
-**Fastest path — zero typing:** the landing page has three **one-click staged demos** ("Step into a case"): a claim ready to serve, a live sealed-offer negotiation against the AI counterpart, and a finished settlement complete with signatures and its verifiable record seal. Each click creates a fresh case.
+**Fastest path — zero typing:** the landing page has three **one-click staged demos** ("Step into a case"): a claim ready to serve, a live sealed-offer negotiation against the AI counterpart (set your private floor, then hit **⚡ Autopilot** and watch the two advocates run the entire procedure — it stops only at the human signature), and a finished settlement complete with signatures and its verifiable record seal. Each click creates a fresh case.
 
 **Full agent experience:**
 1. Open the live URL in ChatGPT's in-app browser, or Chrome 149+ with `chrome://flags/#enable-webmcp-testing`.
