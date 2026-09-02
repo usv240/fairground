@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCase, saveCase, newId } from "@/lib/store";
+import { getCase, saveCase, newId, recordResolution } from "@/lib/store";
 import {
   viewFor, roleForKey, assertAllowed, resolveRoundIfComplete, log, otherRole, whatNext,
 } from "@/lib/machine";
@@ -226,6 +226,7 @@ export async function POST(
         c.phase = "resolved";
         log(c, "system", `Both signatures recorded. Case resolved at $${c.agreement.amount}.`);
         message = `Both parties have signed. The case is resolved at $${c.agreement.amount}.`;
+        await recordResolution(c);
       } else {
         message = "Signature recorded. Waiting for the other party to sign.";
       }

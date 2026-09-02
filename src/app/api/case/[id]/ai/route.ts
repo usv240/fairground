@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCase, saveCase, newId } from "@/lib/store";
+import { getCase, saveCase, newId, recordResolution } from "@/lib/store";
 import { viewFor, roleForKey, log, resolveRoundIfComplete, offersForRound, whatNext } from "@/lib/machine";
 import { realityCheck, mediatorProposal, draftAgreement, opponentPersona } from "@/lib/ai";
 
@@ -131,6 +131,7 @@ export async function POST(
         c.phase = "resolved";
         log(c, "system", `Both signatures recorded. Case resolved at $${c.agreement.amount}.`);
         acted = "The practice respondent countersigned. Case resolved.";
+        await recordResolution(c);
       }
     }
 

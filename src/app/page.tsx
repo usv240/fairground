@@ -6,9 +6,21 @@ import { LandingAgentTools } from "@/components/AgentTools";
 import { apiCreateCase, rememberCase, listStoredCases, StoredCaseRef, ApiError } from "@/lib/client";
 import { WebMCPBadge } from "@/components/case/Sidebar";
 
+type Docket = { resolved: number; dollars: number; avgMinutes: number };
+
 export default function Landing() {
   const router = useRouter();
   const [myCases, setMyCases] = useState<StoredCaseRef[]>([]);
+  const [docket, setDocket] = useState<Docket | null>(null);
+
+  useEffect(() => {
+    let alive = true;
+    const load = () =>
+      fetch("/api/stats").then(r => r.json()).then(d => { if (alive) setDocket(d); }).catch(() => {});
+    load();
+    const t = setInterval(load, 20000);
+    return () => { alive = false; clearInterval(t); };
+  }, []);
   const [title, setTitle] = useState("");
   const [summary, setSummary] = useState("");
   const [amount, setAmount] = useState("");
@@ -80,6 +92,23 @@ export default function Landing() {
           <Stat big="60M+" text="disputes a year are already resolved by software at eBay alone — proof structured resolution works at scale." />
         </div>
       </section>
+
+      {/* The Docket — live aggregates from the platform itself */}
+      {docket && docket.resolved > 0 && (
+        <section aria-label="Live platform statistics" className="mx-auto w-full max-w-6xl px-4 pt-10 sm:px-6">
+          <div className="card flex flex-wrap items-center justify-between gap-x-8 gap-y-3 px-6 py-4">
+            <p className="overline-label text-brass">The docket · live</p>
+            <p className="text-sm text-ink-soft">
+              <span className="font-display text-xl text-forest">{docket.resolved.toLocaleString()}</span> settlement{docket.resolved === 1 ? "" : "s"} signed
+              <span className="mx-3 text-line">|</span>
+              <span className="font-display text-xl text-forest">${docket.dollars.toLocaleString()}</span> resolved
+              <span className="mx-3 text-line">|</span>
+              <span className="font-display text-xl text-forest">{docket.avgMinutes.toLocaleString()}</span> min average, open to signed
+            </p>
+            <p className="text-[11px] text-ink-faint">includes practice &amp; simulated cases</p>
+          </div>
+        </section>
+      )}
 
       {/* How it works */}
       <section id="how" className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">

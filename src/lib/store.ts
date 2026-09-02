@@ -34,6 +34,47 @@ export async function saveCase(c: DisputeCase): Promise<void> {
   memory.set(c.id, c);
 }
 
+// ─── The Docket: public aggregate stats ─────────────────────────────────────
+// Incremented once, atomically, when a case reaches "resolved". Aggregates
+// only — no case content ever leaves the case record.
+
+const memStats = ((globalThis as unknown as { __fgStats?: Record<string, number> }).__fgStats ??= {
+  resolved: 0, dollars: 0, minutes: 0,
+});
+
+export async function recordResolution(c: DisputeCase): Promise<void> {
+  const minutes = Math.max(1, Math.round((Date.now() - c.createdAt) / 60000));
+  const dollars = c.settledAmount ?? 0;
+  if (redis) {
+    await Promise.all([
+      redis.incr("stats:resolved"),
+      redis.incrby("stats:dollars", dollars),
+      redis.incrby("stats:minutes", minutes),
+    ]);
+    return;
+  }
+  memStats.resolved += 1;
+  memStats.dollars += dollars;
+  memStats.minutes += minutes;
+}
+
+export async function getStats(): Promise<{ resolved: number; dollars: number; avgMinutes: number }> {
+  if (redis) {
+    const [resolved, dollars, minutes] = await Promise.all([
+      redis.get<number>("stats:resolved"),
+      redis.get<number>("stats:dollars"),
+      redis.get<number>("stats:minutes"),
+    ]);
+    const r = resolved ?? 0;
+    return { resolved: r, dollars: dollars ?? 0, avgMinutes: r ? Math.round((minutes ?? 0) / r) : 0 };
+  }
+  return {
+    resolved: memStats.resolved,
+    dollars: memStats.dollars,
+    avgMinutes: memStats.resolved ? Math.round(memStats.minutes / memStats.resolved) : 0,
+  };
+}
+
 export function newId(prefix = ""): string {
   const alphabet = "abcdefghjkmnpqrstuvwxyz23456789"; // unambiguous
   let s = "";
