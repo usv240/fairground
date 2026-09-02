@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { checkRateLimit } from "@/lib/ratelimit";
 import { getCase, saveCase, newId, recordResolution } from "@/lib/store";
 import { viewFor, roleForKey, log, resolveRoundIfComplete, offersForRound, whatNext } from "@/lib/machine";
 import { realityCheck, mediatorProposal, draftAgreement, opponentPersona } from "@/lib/ai";
@@ -13,6 +14,9 @@ export async function POST(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> },
 ) {
+  if (!(await checkRateLimit(req))) {
+    return NextResponse.json({ error: "Too many requests; please slow down a little." }, { status: 429 });
+  }
   const { id } = await params;
   const c = await getCase(id);
   if (!c) return NextResponse.json({ error: "Case not found." }, { status: 404 });

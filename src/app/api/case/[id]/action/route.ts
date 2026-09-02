@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCase, saveCase, newId, recordResolution } from "@/lib/store";
+import { getCase, saveCase, newId, recordResolution, recordFairness } from "@/lib/store";
 import {
   viewFor, roleForKey, assertAllowed, resolveRoundIfComplete, log, otherRole, whatNext,
 } from "@/lib/machine";
@@ -142,8 +142,8 @@ export async function POST(
       if (violates && body.humanApproved !== true) {
         return NextResponse.json({
           error: role === "claimant"
-            ? `Mandate guard: $${amount} is below your human's private floor of $${mandate.limit}. Confirm with your human first; if they agree, resubmit with humanApproved: true.`
-            : `Mandate guard: $${amount} is above your human's private ceiling of $${mandate.limit}. Confirm with your human first; if they agree, resubmit with humanApproved: true.`,
+            ? `Mandate guard: $${amount} is below your human's private floor of $${mandate.limit}. Either confirm with your human in conversation and resubmit with humanApproved: true, or call request_mandate_override to raise an approval card on their screen.`
+            : `Mandate guard: $${amount} is above your human's private ceiling of $${mandate.limit}. Either confirm with your human in conversation and resubmit with humanApproved: true, or call request_mandate_override to raise an approval card on their screen.`,
         }, { status: 409 });
       }
       c.offers.push({ round: c.round, by: role, amount, note: body.note ? String(body.note).slice(0, 500) : undefined, at: Date.now() });
@@ -230,6 +230,69 @@ export async function POST(
       } else {
         message = "Signature recorded. Waiting for the other party to sign.";
       }
+      break;
+    }
+
+    case "request_override": {
+      // Elicitation: the agent parks a beyond-mandate proposal; only the
+      // human's click on the page can convert it into a real sealed offer.
+      const amount = Math.round(Number(body.amount));
+      const mandate = c.mandates[role];
+      if (!mandate) return NextResponse.json({ error: "No mandate set; nothing to override." }, { status: 409 });
+      if (!Number.isFinite(amount) || amount < 0 || amount > 250000) {
+        return NextResponse.json({ error: "Amount must be a non-negative number up to 250,000." }, { status: 400 });
+      }
+      const violates = role === "claimant" ? amount < mandate.limit : amount > mandate.limit;
+      if (!violates) {
+        return NextResponse.json({ error: `$${amount} is within your mandate; submit it normally with submit_sealed_offer.` }, { status: 409 });
+      }
+      c.pendingOverrides = { ...c.pendingOverrides, [role]: {
+        amount, reason: body.reason ? String(body.reason).slice(0, 300) : undefined, at: Date.now(),
+      } };
+      log(c, "system", `${role}'s advocate requested approval to go beyond the private mandate. (Details sealed; awaiting the human's decision on their page.)`);
+      message = `Approval card raised on your human's screen: offer $${amount}, which crosses their private ${role === "claimant" ? "floor" : "ceiling"} of $${mandate.limit}. Do NOT proceed until they decide on the page; check get_case_status for the outcome.`;
+      break;
+    }
+
+    case "resolve_override": {
+      // Human-only by design: the page's approval card calls this.
+      const pending = c.pendingOverrides?.[role];
+      if (!pending) return NextResponse.json({ error: "No pending approval." }, { status: 409 });
+      delete c.pendingOverrides![role];
+      if (body.approve === true) {
+        const existing = c.offers.find(o => o.round === c.round && o.by === role);
+        if (existing) {
+          log(c, role, "Approved a mandate override, but this round's offer was already in; nothing submitted.");
+          message = "Approved, but an offer for this round already exists.";
+          break;
+        }
+        c.offers.push({ round: c.round, by: role, amount: pending.amount, note: "human-approved override", at: Date.now() });
+        log(c, role, `${role} personally approved going beyond the mandate; sealed offer submitted for round ${c.round}. (Amount sealed.)`);
+        const before = c.round;
+        const result = resolveRoundIfComplete(c);
+        message = result.settled
+          ? `You approved it, and the offers overlapped. Settled at $${c.settledAmount}.`
+          : `You approved it. The sealed offer is in for round ${before}.`;
+      } else {
+        log(c, role, `${role} declined the advocate's request to go beyond the mandate.`);
+        message = "Declined. Your mandate stands; your advocate has been told to stay within it.";
+      }
+      break;
+    }
+
+    case "rate_fairness": {
+      const rating = Math.round(Number(body.rating));
+      if (!Number.isFinite(rating) || rating < 1 || rating > 5) {
+        return NextResponse.json({ error: "Rating must be 1 to 5." }, { status: 400 });
+      }
+      const f = (c.fairness ??= { sum: 0, count: 0, rated: [] });
+      if (f.rated.includes(role)) return NextResponse.json({ error: "You already rated this process." }, { status: 409 });
+      f.sum += rating;
+      f.count += 1;
+      f.rated.push(role);
+      await recordFairness(rating);
+      log(c, role, `${role} rated the fairness of the process: ${rating}/5.`);
+      message = "Thank you. Fairness ratings shape how Fairground's process evolves.";
       break;
     }
 

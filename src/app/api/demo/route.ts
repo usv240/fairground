@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { checkRateLimit } from "@/lib/ratelimit";
 import { DisputeCase } from "@/lib/types";
 import { saveCase, newId, recordResolution } from "@/lib/store";
 import { log, resolveRoundIfComplete } from "@/lib/machine";
@@ -32,6 +33,9 @@ function addEvidence(c: DisputeCase, by: "claimant" | "respondent", title: strin
 }
 
 export async function POST(req: NextRequest) {
+  if (!(await checkRateLimit(req))) {
+    return NextResponse.json({ error: "Too many requests; please slow down a little." }, { status: 429 });
+  }
   let preset = "";
   try {
     preset = String((await req.json()).preset ?? "");

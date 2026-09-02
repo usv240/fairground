@@ -282,6 +282,23 @@ export function CaseAgentTools({
   });
 
   useWebMCP({
+    name: "request_mandate_override",
+    description:
+      "Elicitation: if you believe settling requires going beyond your human's private mandate, raise an approval card directly on their screen with the proposed amount. Only their click on the page can approve it; you cannot. Use sparingly, with a short honest reason.",
+    enabled: phase === "negotiation" && !!view.yourMandate && !view.yourPendingOverride,
+    inputSchema: {
+      type: "object",
+      properties: {
+        amount: { type: "number", description: "USD amount that crosses the mandate" },
+        reason: { type: "string", description: "One short sentence for your human on why this concession may be worth it" },
+      },
+      required: ["amount"],
+    },
+    execute: (input: { amount: number }) =>
+      action("request_mandate_override", `Asked the human to approve ${formatMoney(input.amount)} (beyond mandate)`, { type: "request_override", ...input }),
+  });
+
+  useWebMCP({
     name: "get_negotiation_state",
     description:
       "Check the sealed-bidding state: current round, who has submitted, rounds remaining, published gap signals, and your side's own offers so far.",

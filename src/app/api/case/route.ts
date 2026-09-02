@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { checkRateLimit } from "@/lib/ratelimit";
 import { DisputeCase, Category } from "@/lib/types";
 import { saveCase, newId } from "@/lib/store";
 import { viewFor } from "@/lib/machine";
@@ -11,6 +12,9 @@ const CATEGORIES: Category[] = [
 ];
 
 export async function POST(req: NextRequest) {
+  if (!(await checkRateLimit(req))) {
+    return NextResponse.json({ error: "Too many requests; please slow down a little." }, { status: 429 });
+  }
   let body: Record<string, unknown>;
   try {
     body = await req.json();

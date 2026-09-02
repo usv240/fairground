@@ -6,7 +6,10 @@ import { LandingAgentTools } from "@/components/AgentTools";
 import { apiCreateCase, rememberCase, listStoredCases, StoredCaseRef, ApiError } from "@/lib/client";
 import { WebMCPBadge } from "@/components/case/Sidebar";
 
-type Docket = { resolved: number; dollars: number; avgMinutes: number };
+type Docket = {
+  resolved: number; dollars: number; avgMinutes: number;
+  fairness: number | null; fairnessCount: number;
+};
 
 export default function Landing() {
   const router = useRouter();
@@ -153,6 +156,12 @@ export default function Landing() {
               <span className="font-display text-xl text-forest">${docket.dollars.toLocaleString()}</span> resolved
               <span className="mx-3 text-line">|</span>
               <span className="font-display text-xl text-forest">{docket.avgMinutes.toLocaleString()}</span> min average, open to signed
+              {docket.fairness != null && docket.fairnessCount >= 3 && (
+                <>
+                  <span className="mx-3 text-line">|</span>
+                  <span className="font-display text-xl text-forest">{docket.fairness}/5</span> felt fair, say the parties
+                </>
+              )}
             </p>
             <p className="text-[11px] text-ink-faint">includes practice &amp; simulated cases</p>
           </div>

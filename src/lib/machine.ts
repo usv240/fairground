@@ -177,6 +177,8 @@ export function viewFor(c: DisputeCase, role: Role, origin: string): CaseView {
       ? `${origin}/case/${c.id}?k=${c.keys.respondent}`
       : undefined,
     respondentJoined: c.phase !== "intake",
+    yourPendingOverride: c.pendingOverrides?.[role],
+    youRatedFairness: c.fairness?.rated.includes(role) ?? false,
     whatNext: whatNext(c, role),
   };
 }
@@ -200,6 +202,9 @@ export const ALLOWED: Record<string, { phases: Phase[]; roles: Role[] }> = {
   request_mediation:  { phases: ["negotiation"], roles: ["claimant", "respondent"] },
   respond_proposal:   { phases: ["mediation"], roles: ["claimant", "respondent"] },
   sign:               { phases: ["agreement"], roles: ["claimant", "respondent"] },
+  request_override:   { phases: ["negotiation"], roles: ["claimant", "respondent"] },
+  resolve_override:   { phases: ["negotiation"], roles: ["claimant", "respondent"] },
+  rate_fairness:      { phases: ["resolved", "closed"], roles: ["claimant", "respondent"] },
 };
 
 export function assertAllowed(c: DisputeCase, role: Role, action: string): string | null {

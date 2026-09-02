@@ -39,8 +39,20 @@ export async function saveCase(c: DisputeCase): Promise<void> {
 // only — no case content ever leaves the case record.
 
 const memStats = ((globalThis as unknown as { __fgStats?: Record<string, number> }).__fgStats ??= {
-  resolved: 0, dollars: 0, minutes: 0,
+  resolved: 0, dollars: 0, minutes: 0, fairSum: 0, fairCount: 0,
 });
+
+export async function recordFairness(rating: number): Promise<void> {
+  if (redis) {
+    await Promise.all([
+      redis.incrby("stats:fairsum", rating),
+      redis.incr("stats:faircount"),
+    ]);
+    return;
+  }
+  memStats.fairSum += rating;
+  memStats.fairCount += 1;
+}
 
 export async function recordResolution(c: DisputeCase): Promise<void> {
   const minutes = Math.max(1, Math.round((Date.now() - c.createdAt) / 60000));
@@ -58,20 +70,33 @@ export async function recordResolution(c: DisputeCase): Promise<void> {
   memStats.minutes += minutes;
 }
 
-export async function getStats(): Promise<{ resolved: number; dollars: number; avgMinutes: number }> {
+export async function getStats(): Promise<{
+  resolved: number; dollars: number; avgMinutes: number;
+  fairness: number | null; fairnessCount: number;
+}> {
   if (redis) {
-    const [resolved, dollars, minutes] = await Promise.all([
+    const [resolved, dollars, minutes, fairSum, fairCount] = await Promise.all([
       redis.get<number>("stats:resolved"),
       redis.get<number>("stats:dollars"),
       redis.get<number>("stats:minutes"),
+      redis.get<number>("stats:fairsum"),
+      redis.get<number>("stats:faircount"),
     ]);
     const r = resolved ?? 0;
-    return { resolved: r, dollars: dollars ?? 0, avgMinutes: r ? Math.round((minutes ?? 0) / r) : 0 };
+    const fc = fairCount ?? 0;
+    return {
+      resolved: r, dollars: dollars ?? 0,
+      avgMinutes: r ? Math.round((minutes ?? 0) / r) : 0,
+      fairness: fc ? Math.round(((fairSum ?? 0) / fc) * 10) / 10 : null,
+      fairnessCount: fc,
+    };
   }
   return {
     resolved: memStats.resolved,
     dollars: memStats.dollars,
     avgMinutes: memStats.resolved ? Math.round(memStats.minutes / memStats.resolved) : 0,
+    fairness: memStats.fairCount ? Math.round((memStats.fairSum / memStats.fairCount) * 10) / 10 : null,
+    fairnessCount: memStats.fairCount,
   };
 }
 

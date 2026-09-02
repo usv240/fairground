@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.54",
+    "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.38.3",
     "ai": "^7.0.88",
     "next": "16.3.4",

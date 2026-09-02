@@ -70,6 +70,33 @@ export function ActionPanel({
         />
       )}
 
+      {view.yourPendingOverride && view.phase === "negotiation" && (
+        <div className="card border-clay/50 p-5">
+          <p className="overline-label text-clay">Your advocate is asking your permission</p>
+          <p className="mt-2 text-sm leading-relaxed">
+            It proposes offering <span className="font-display text-lg">{formatMoney(view.yourPendingOverride.amount)}</span>,
+            which crosses your private {view.yourRole === "claimant" ? "floor" : "ceiling"} of{" "}
+            <span className="font-semibold">{formatMoney(view.yourMandate?.limit ?? 0)}</span>.
+            {view.yourPendingOverride.reason && (
+              <span className="block mt-1 text-ink-soft">Its reason: &ldquo;{view.yourPendingOverride.reason}&rdquo;</span>
+            )}
+          </p>
+          <p className="mt-1.5 text-xs text-ink-faint">
+            No agent can click these buttons. The decision, like the signature later, is yours alone.
+          </p>
+          <div className="mt-3 flex gap-2.5">
+            <button className="btn btn-primary" disabled={busy}
+              onClick={() => act({ type: "resolve_override", approve: true })}>
+              Approve this once
+            </button>
+            <button className="btn btn-quiet" disabled={busy}
+              onClick={() => act({ type: "resolve_override", approve: false })}>
+              Decline, hold my limit
+            </button>
+          </div>
+        </div>
+      )}
+
       {view.vsAi && view.yourMandate && (view.phase === "negotiation" || view.phase === "mediation") && (
         <AutopilotBar view={view} caseId={caseId} accessKey={accessKey} refresh={refresh} />
       )}
@@ -604,7 +631,58 @@ function AgreementPanel({
           <p className="text-xs text-ink-faint">Keep a copy. Payment is due per the terms above.</p>
         </div>
       )}
+
+      {resolved && !view.youRatedFairness && (
+        <FairnessForm act={act} busy={busy} />
+      )}
     </div>
+  );
+}
+
+// Registered through WebMCP's DECLARATIVE API: the annotated form itself is
+// the tool. Browsers without declarative support simply ignore the attributes
+// and the form works as plain HTML.
+function FairnessForm({ act, busy }: { act: (p: Record<string, unknown>, ok?: string) => void; busy: boolean }) {
+  const [rating, setRating] = useState("5");
+  return (
+    <form
+      {...{
+        toolname: "rate_process_fairness",
+        tooldescription:
+          "Record how fair this settlement process felt to your side, from 1 (unfair) to 5 (very fair). Ask your human for their honest rating before submitting.",
+        toolautosubmit: "",
+      }}
+      className="card p-5"
+      onSubmit={e => {
+        e.preventDefault();
+        act({ type: "rate_fairness", rating: Number(rating) }, "Thank you. Your rating joins the public fairness score.");
+      }}
+    >
+      <p className="overline-label">One last question</p>
+      <label htmlFor="fairness-rating" className="mt-2 block text-sm text-ink-soft">
+        Whatever the outcome, how fair did this process feel?
+      </label>
+      <div className="mt-2.5 flex items-center gap-2.5">
+        <select
+          id="fairness-rating"
+          className="field w-auto"
+          value={rating}
+          onChange={e => setRating(e.target.value)}
+          {...{ toolparamdescription: "Fairness rating from 1 (unfair) to 5 (very fair)" }}
+        >
+          <option value="5">5 · Very fair</option>
+          <option value="4">4 · Fair</option>
+          <option value="3">3 · Neutral</option>
+          <option value="2">2 · Somewhat unfair</option>
+          <option value="1">1 · Unfair</option>
+        </select>
+        <button type="submit" className="btn btn-secondary" disabled={busy}>Submit rating</button>
+      </div>
+      <p className="mt-2 text-xs text-ink-faint">
+        Research calls this the fair-procedure effect: processes with voice and neutrality earn acceptance
+        even when outcomes disappoint. We measure ourselves against it, publicly.
+      </p>
+    </form>
   );
 }
 

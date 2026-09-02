@@ -121,6 +121,10 @@ export interface DisputeCase {
     hiddenCeiling: number;
     style: string;
   };
+  // Elicitation: an agent proposing to cross its human's mandate parks the
+  // proposal here; only the human's click on the page converts or clears it.
+  pendingOverrides?: Partial<Record<Role, { amount: number; reason?: string; at: number }>>;
+  fairness?: { sum: number; count: number; rated: Role[] };
   activity: ActivityEntry[];
 }
 
@@ -163,6 +167,8 @@ export interface CaseView {
   activity: ActivityEntry[];
   inviteLink?: string;             // claimant only, while respondent hasn't joined
   respondentJoined: boolean;
+  yourPendingOverride?: { amount: number; reason?: string; at: number };
+  youRatedFairness?: boolean;
   whatNext: string;                // per-role, per-phase guidance surfaced to agents
 }
 
