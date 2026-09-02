@@ -31,7 +31,9 @@ Agent asks for the mandate; answer: *"Don't go below $1,400 — but speed matter
 
 > "Three rounds, no overlap — so the neutral mediator, who alone can see the sealed history, puts one fair number on the table. Both sides accept. The agreement is drafted in plain language — and here's the line we drew in the tool surface itself: there is NO signing tool. My agent got me here, but consent is mine."
 
-Type your name, click **Sign agreement**. Counterpart countersigns. RESOLVED banner.
+Type your name, click **Sign agreement**. Counterpart countersigns. RESOLVED banner. Point at the record seal at the bottom of the agreement:
+
+> "And see this seal? It's a cryptographic fingerprint of the signed record — printed on the document. Anyone holding this agreement can prove it authentic, forever."
 
 ### 2:25–2:55 — Close (over the resolved case / landing)
 
