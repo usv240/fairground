@@ -31,6 +31,25 @@ export default function Landing() {
 
   useEffect(() => setMyCases(listStoredCases()), []);
 
+  const [demoBusy, setDemoBusy] = useState<string | null>(null);
+  async function launchDemo(preset: string) {
+    if (demoBusy) return;
+    setDemoBusy(preset);
+    try {
+      const res = await fetch("/api/demo", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ preset }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      rememberCase({ caseId: data.caseId, key: data.yourKey, role: "claimant", title: `Demo: ${preset}`, savedAt: Date.now() });
+      router.push(`/case/${data.caseId}?k=${data.yourKey}`);
+    } catch {
+      setDemoBusy(null);
+    }
+  }
+
   async function start() {
     setBusy(true);
     setErr(null);
@@ -54,6 +73,7 @@ export default function Landing() {
       <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
         <span className="font-display text-xl tracking-tight text-forest">⚖️ Fairground</span>
         <div className="flex items-center gap-5 text-sm">
+          <a href="#demos" className="text-ink-soft hover:text-ink">1-click demos</a>
           <a href="#how" className="text-ink-soft hover:text-ink">How it works</a>
           <a href="#agents" className="text-ink-soft hover:text-ink">For agents</a>
           <a href="#start" className="btn btn-primary py-2">Start a case</a>
@@ -109,6 +129,42 @@ export default function Landing() {
           </div>
         </section>
       )}
+
+      {/* One-click demos */}
+      <section id="demos" className="mx-auto w-full max-w-6xl px-4 pt-14 sm:px-6">
+        <p className="overline-label">One click, no typing</p>
+        <h2 className="font-display mt-2 text-3xl tracking-tight">Step into a case</h2>
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
+          Each button opens a fresh, fully-staged practice case — evidence and all — at a different moment
+          in the process. Bring your agent, or click around by hand.
+        </p>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          <DemoCard
+            preset="invoice"
+            stage="Start: ready to serve"
+            title="The unpaid invoice"
+            text="You're a freelancer owed $1,800, with a signed contract and a read-but-ignored reminder thread already on the record. Serve the claim and take it from there."
+            onLaunch={launchDemo}
+            busyPreset={demoBusy}
+          />
+          <DemoCard
+            preset="deposit"
+            stage="Middle: sealed offers open"
+            title="The withheld deposit"
+            text="Your landlord kept $1,200 despite a signed clean checklist — and has already filed their side of the story. You land right at the sealed-envelope table."
+            onLaunch={launchDemo}
+            busyPreset={demoBusy}
+          />
+          <DemoCard
+            preset="resolved"
+            stage="End: signed & sealed"
+            title="See a finished settlement"
+            text="Skip to the ending: a refund dispute already settled at the midpoint of overlapping sealed offers — signatures, plain-language agreement, and the verifiable record seal."
+            onLaunch={launchDemo}
+            busyPreset={demoBusy}
+          />
+        </div>
+      </section>
 
       {/* How it works */}
       <section id="how" className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
@@ -221,6 +277,29 @@ export default function Landing() {
         </div>
       </footer>
     </div>
+  );
+}
+
+function DemoCard({
+  preset, stage, title, text, onLaunch, busyPreset,
+}: {
+  preset: string; stage: string; title: string; text: string;
+  onLaunch: (p: string) => void; busyPreset: string | null;
+}) {
+  const busy = busyPreset === preset;
+  return (
+    <button
+      onClick={() => onLaunch(preset)}
+      disabled={busyPreset !== null}
+      className="card group p-5 text-left transition-shadow hover:shadow-lift disabled:opacity-60"
+    >
+      <p className="overline-label text-brass">{stage}</p>
+      <p className="font-display mt-1.5 text-lg">{title}</p>
+      <p className="mt-1.5 text-xs leading-relaxed text-ink-soft">{text}</p>
+      <p className="mt-3 text-sm font-semibold text-forest">
+        {busy ? "Setting the table…" : "Open this case →"}
+      </p>
+    </button>
   );
 }
 

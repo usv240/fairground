@@ -124,7 +124,7 @@ export async function mediatorProposal(c: DisputeCase) {
 }
 
 // ─── Settlement agreement drafting ──────────────────────────────────────────
-export async function draftAgreement(c: DisputeCase): Promise<{ draft: string; terms: string[] }> {
+export async function draftAgreement(c: DisputeCase, fast = false): Promise<{ draft: string; terms: string[] }> {
   const amount = c.settledAmount ?? 0;
   const via =
     c.settledVia === "direct_accept" ? "direct acceptance of the claim" :
@@ -155,7 +155,7 @@ export async function draftAgreement(c: DisputeCase): Promise<{ draft: string; t
     `Signed electronically by each party personally, below. Signatures on Fairground are made by humans only; no automated agent can execute them.`,
   ].join("\n");
 
-  if (!hasKey()) return { draft: template, terms };
+  if (fast || !hasKey()) return { draft: template, terms };
   try {
     const { object } = await generateObject({
       model: openai()(MODEL),

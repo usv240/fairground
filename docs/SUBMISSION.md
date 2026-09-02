@@ -32,8 +32,11 @@ React components register tools with Chrome's `use-webmcp-tool` hook; the `enabl
 
 ## Testing instructions (for judges)
 
+**Fastest path — zero typing:** the landing page has three **one-click staged demos** ("Step into a case"): a claim ready to serve, a live sealed-offer negotiation against the AI counterpart, and a finished settlement complete with signatures and its verifiable record seal. Each click creates a fresh case.
+
+**Full agent experience:**
 1. Open the live URL in ChatGPT's in-app browser, or Chrome 149+ with `chrome://flags/#enable-webmcp-testing`.
-2. Tell your agent: *"I designed a logo for a client — they owe me $1,800, it's 75 days overdue and they've stopped replying. Open a practice case on this site and help me settle it."*
+2. Tell your agent: *"I designed a logo for a client — they owe me $1,800, it's 75 days overdue and they've stopped replying. Open a practice case on this site and help me settle it."* (Or click a demo preset and hand the case to your agent mid-flight.)
 3. Follow its lead: it files the claim and evidence, the AI counterpart disputes, your agent asks YOU for your private floor, then bids sealed rounds. Watch every agent move appear in the "Your agent on this page" feed.
 4. When a settlement is reached, note your agent can draft — but not sign. Sign the agreement yourself.
 5. Two-party mode: create a case *without* practice mode, open the invite link in a second browser/profile, and run both chairs with two agents.
