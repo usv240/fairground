@@ -53,7 +53,7 @@ Every tool that returns party-authored content (`review_claim`, `read_messages`)
 
 A person alone can't afford to pursue $1,800. An agent alone can't be trusted to concede money or consent on someone's behalf. **Together — human judgment on limits and consent, agent stamina on procedure, evidence, and negotiation, and a neutral tool surface enforcing fairness between them — a dispute that was economically irrational to pursue settles before lunch.** That division of labor is exactly the future of the open web this challenge asks about.
 
-## The WebMCP surface (16 tools)
+## The WebMCP surface (23 tools)
 
 | Tool | Who | When | Notes |
 |---|---|---|---|
