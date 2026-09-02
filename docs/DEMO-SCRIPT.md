@@ -37,7 +37,7 @@ Type your name, click **Sign agreement**. Counterpart countersigns. RESOLVED ban
 
 ### 2:25–2:55 — Close (over the resolved case / landing)
 
-> "Nine minutes, not nine months. Built entirely on WebMCP: sixteen tools that appear and disappear with each side's role and the phase of the case — due process, enforced by tool availability. Two humans, two adversarial agents, one neutral page. That's a kind of fairness the web has never been able to offer — until websites could hand agents governed tools. Fairground."
+> "Nine minutes, not nine months. Built entirely on WebMCP: twenty-one tools that appear and disappear with each side's role and the phase of the case — due process, enforced by tool availability. Two humans, two adversarial agents, one neutral page. That's a kind of fairness the web has never been able to offer — until websites could hand agents governed tools. Fairground."
 
 ---
 
