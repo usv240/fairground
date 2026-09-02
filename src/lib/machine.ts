@@ -1,6 +1,24 @@
+import { createHash } from "node:crypto";
 import {
   DisputeCase, CaseView, Role, Phase, RoundSignal, MAX_ROUNDS,
 } from "./types";
+
+// Tamper-evident record seal: SHA-256 over the settled record's operative
+// fields. Printed on the agreement; verifiable later by either party (or
+// their agent) without trusting a copy someone else kept.
+export function sealFor(c: DisputeCase): string | undefined {
+  const a = c.agreement;
+  if (!a?.signatures.claimant || !a.signatures.respondent) return undefined;
+  const material = JSON.stringify({
+    caseId: c.id,
+    amount: a.amount,
+    draft: a.draft,
+    terms: a.terms,
+    claimant: a.signatures.claimant,
+    respondent: a.signatures.respondent,
+  });
+  return createHash("sha256").update(material).digest("hex");
+}
 
 export function otherRole(r: Role): Role {
   return r === "claimant" ? "respondent" : "claimant";
@@ -151,6 +169,8 @@ export function viewFor(c: DisputeCase, role: Role, origin: string): CaseView {
       amount: c.agreement.amount,
       youSigned: !!c.agreement.signatures[role],
       otherSigned: !!c.agreement.signatures[otherRole(role)],
+      signatures: c.agreement.signatures,
+      seal: sealFor(c),
     } : undefined,
     activity: c.activity,
     inviteLink: role === "claimant" && !c.vsAi

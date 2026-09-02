@@ -43,7 +43,7 @@ export function InvitePanel({ view }: { view: CaseView }) {
         shows each side only its own private information.
       </p>
       <div className="mt-2.5 flex gap-2">
-        <input readOnly className="field text-xs" value={view.inviteLink} onFocus={e => e.target.select()} />
+        <input readOnly className="field text-xs" aria-label="Invite link for the other party" value={view.inviteLink} onFocus={e => e.target.select()} />
         <button
           className="btn btn-secondary shrink-0 text-xs px-3"
           onClick={async () => {

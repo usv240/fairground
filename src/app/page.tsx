@@ -149,14 +149,14 @@ export default function Landing() {
           <div className="card p-6">
             {err && <p className="mb-3 rounded-lg bg-clay-tint px-3 py-2 text-sm text-clay">{err}</p>}
             <div className="space-y-3">
-              <input className="field" placeholder="Case title — e.g. “Unpaid logo design invoice”"
+              <input className="field" aria-label="Case title" placeholder="Case title — e.g. “Unpaid logo design invoice”"
                 value={title} onChange={e => setTitle(e.target.value)} />
-              <textarea className="field min-h-28" placeholder="What happened? Plain language is perfect."
+              <textarea className="field min-h-28" aria-label="What happened" placeholder="What happened? Plain language is perfect."
                 value={summary} onChange={e => setSummary(e.target.value)} />
               <div className="flex gap-3">
-                <input className="field" type="number" min={1} placeholder="Amount (USD)"
+                <input className="field" type="number" min={1} aria-label="Amount in US dollars" placeholder="Amount (USD)"
                   value={amount} onChange={e => setAmount(e.target.value)} />
-                <select className="field" value={category} onChange={e => setCategory(e.target.value)}>
+                <select className="field" aria-label="Dispute category" value={category} onChange={e => setCategory(e.target.value)}>
                   <option value="freelance_invoice">Unpaid freelance invoice</option>
                   <option value="security_deposit">Security deposit</option>
                   <option value="purchase_dispute">Purchase / refund</option>

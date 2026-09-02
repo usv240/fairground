@@ -414,8 +414,33 @@ export function CaseAgentTools({
       return [
         `RESOLVED: settled at ${formatMoney(view.agreement.amount)} (${view.settledVia?.replace(/_/g, " ")}).`,
         `Terms:\n${view.agreement.terms.map((t, i) => `${i + 1}. ${t}`).join("\n")}`,
-        `Signed by both parties. A printable copy is available on the page ("Print / save PDF").`,
-      ].join("\n\n");
+        `Signed: ${view.agreement.signatures.claimant?.name ?? "—"} (claimant), ${view.agreement.signatures.respondent?.name ?? "—"} (respondent).`,
+        view.agreement.seal ? `Record seal (SHA-256): ${view.agreement.seal}` : "",
+        `A printable copy is available on the page ("Print / save PDF").`,
+      ].filter(Boolean).join("\n\n");
+    },
+  });
+
+  useWebMCP({
+    name: "verify_settlement_record",
+    description:
+      "Verify that a copy of this settlement is authentic: checks a presented SHA-256 record seal against the sealed record on file. Works for any holder of the document — proves the agreement was not altered after signing.",
+    annotations: { readOnlyHint: true },
+    enabled: phase === "resolved",
+    inputSchema: {
+      type: "object",
+      properties: {
+        seal: { type: "string", description: "The 64-character hex record seal printed on the agreement" },
+      },
+      required: ["seal"],
+    },
+    execute: async (input: { seal: string }) => {
+      const res = await fetch(`/api/verify?case=${encodeURIComponent(caseId)}&seal=${encodeURIComponent(input.seal.trim())}`);
+      const data = await res.json();
+      act("verify_settlement_record", data.valid ? "Verified the record seal ✓" : "Seal did NOT verify");
+      return data.valid
+        ? `✓ ${data.message}`
+        : `✗ ${data.reason ?? "Seal did not verify."}`;
     },
   });
 

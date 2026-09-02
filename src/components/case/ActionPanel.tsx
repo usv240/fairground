@@ -126,12 +126,12 @@ function IntakePanel({
       </p>
 
       <div className="mt-4 space-y-2.5">
-        <input className="field" placeholder="Evidence title — e.g. “Signed contract, March 3”"
+        <input className="field" aria-label="Evidence title" placeholder="Evidence title — e.g. “Signed contract, March 3”"
           value={evTitle} onChange={e => setEvTitle(e.target.value)} />
-        <textarea className="field min-h-20" placeholder="What does it show, and why does it matter?"
+        <textarea className="field min-h-20" aria-label="What the evidence shows" placeholder="What does it show, and why does it matter?"
           value={evDesc} onChange={e => setEvDesc(e.target.value)} />
         <div className="flex items-center gap-2.5">
-          <select className="field w-auto" value={evKind} onChange={e => setEvKind(e.target.value)}>
+          <select className="field w-auto" aria-label="Evidence type" value={evKind} onChange={e => setEvKind(e.target.value)}>
             {["contract", "invoice", "message", "receipt", "photo", "document", "other"].map(k => (
               <option key={k} value={k}>{k}</option>
             ))}
@@ -199,12 +199,12 @@ function RespondPanel({
           ))}
         </div>
 
-        <textarea className="field min-h-24 mt-3"
+        <textarea className="field min-h-24 mt-3" aria-label="Your account of what happened"
           placeholder="Your account of what happened, in plain language…"
           value={story} onChange={e => setStory(e.target.value)} />
 
         {position !== "accept_full" && (
-          <input className="field mt-2.5" type="number" min={0}
+          <input className="field mt-2.5" type="number" min={0} aria-label="Indicative counter-amount in US dollars"
             placeholder="Optional: indicative counter-amount in USD (non-binding)"
             value={counter} onChange={e => setCounter(e.target.value)} />
         )}
@@ -306,14 +306,14 @@ function NegotiationPanel({
                 : "The highest amount you would truly pay. Your agent cannot bid above it without coming back to you — and the other side can never see it."}
             </p>
             <div className="mt-2.5 flex gap-2.5">
-              <input className="field" type="number" min={0} placeholder={isClaimant ? "Your floor (USD)" : "Your ceiling (USD)"}
+              <input className="field" type="number" min={0} aria-label="Your private limit in US dollars" placeholder={isClaimant ? "Your floor (USD)" : "Your ceiling (USD)"}
                 value={limit} onChange={e => setLimit(e.target.value)} />
               <button className="btn btn-primary shrink-0" disabled={busy || !limit}
                 onClick={() => act({ type: "set_mandate", limit: Number(limit), priorities })}>
                 Seal it
               </button>
             </div>
-            <input className="field mt-2" placeholder="Optional: what matters besides money (speed, relationship…)"
+            <input className="field mt-2" aria-label="Priorities besides money" placeholder="Optional: what matters besides money (speed, relationship…)"
               value={priorities} onChange={e => setPriorities(e.target.value)} />
           </div>
         ) : !o.youSubmittedThisRound ? (
@@ -325,7 +325,7 @@ function NegotiationPanel({
             </p>
             <div className="mt-2.5 flex gap-2.5">
               <input className="field" type="number" min={0}
-                placeholder={isClaimant ? "Lowest you'd accept this round (USD)" : "Highest you'd pay this round (USD)"}
+                aria-label="Sealed offer amount in US dollars" placeholder={isClaimant ? "Lowest you would accept this round (USD)" : "Highest you'd pay this round (USD)"}
                 value={offer} onChange={e => setOffer(e.target.value)} />
               <button className="btn btn-primary shrink-0" disabled={busy || !offer}
                 onClick={() => { act({ type: "submit_offer", amount: Number(offer) }); setOffer(""); }}>
@@ -476,9 +476,19 @@ function AgreementPanel({
         <p className="overline-label">Settlement agreement{resolved ? " — fully signed" : ""}</p>
         <div className="mt-3 whitespace-pre-wrap font-display text-[15px] leading-relaxed">{a.draft}</div>
         <div className="mt-5 grid grid-cols-2 gap-4 border-t border-line pt-4 text-sm">
-          <SignatureBlock label="Claimant" signed={view.yourRole === "claimant" ? a.youSigned : a.otherSigned} />
-          <SignatureBlock label="Respondent" signed={view.yourRole === "respondent" ? a.youSigned : a.otherSigned} />
+          <SignatureBlock label="Claimant" sig={a.signatures.claimant} />
+          <SignatureBlock label="Respondent" sig={a.signatures.respondent} />
         </div>
+        {resolved && a.seal && (
+          <div className="mt-4 border-t border-line pt-3">
+            <p className="overline-label">Record seal</p>
+            <p className="mt-1 break-all font-mono text-[11px] text-ink-soft">{a.seal}</p>
+            <p className="mt-1 text-[11px] text-ink-faint">
+              SHA-256 of the settled record. Anyone holding this document can confirm it is unaltered at{" "}
+              <span className="font-mono">/api/verify?case={view.id}&amp;seal=…</span> — no account needed.
+            </p>
+          </div>
+        )}
       </div>
 
       {!resolved && !a.youSigned && (
@@ -489,7 +499,7 @@ function AgreementPanel({
             above yourself, then sign with your own hands.
           </p>
           <div className="mt-3 flex gap-2.5">
-            <input className="field font-display italic" placeholder="Type your full legal name"
+            <input className="field font-display italic" aria-label="Your full legal name signature" placeholder="Type your full legal name"
               value={name} onChange={e => setName(e.target.value)} />
             <button className="btn btn-primary shrink-0" disabled={busy || name.trim().length < 3}
               onClick={() => act({ type: "sign", name: name.trim() })}>
@@ -513,13 +523,20 @@ function AgreementPanel({
   );
 }
 
-function SignatureBlock({ label, signed }: { label: string; signed: boolean }) {
+function SignatureBlock({ label, sig }: { label: string; sig?: { name: string; signedAt: number } }) {
   return (
     <div>
       <p className="overline-label">{label}</p>
-      {signed
-        ? <p className="mt-1 font-display italic text-forest">✓ Signed</p>
-        : <p className="mt-1 text-ink-faint">Awaiting signature</p>}
+      {sig ? (
+        <>
+          <p className="mt-1 font-display text-lg italic text-forest">{sig.name}</p>
+          <p className="text-[11px] text-ink-faint">
+            signed {new Date(sig.signedAt).toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}
+          </p>
+        </>
+      ) : (
+        <p className="mt-1 text-ink-faint">Awaiting signature</p>
+      )}
     </div>
   );
 }

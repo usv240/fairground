@@ -157,6 +157,8 @@ export interface CaseView {
     amount: number;
     youSigned: boolean;
     otherSigned: boolean;
+    signatures: Partial<Record<Role, Signature>>;  // names are mutual once given
+    seal?: string;                                  // tamper-evident record hash
   };
   activity: ActivityEntry[];
   inviteLink?: string;             // claimant only, while respondent hasn't joined

@@ -78,7 +78,7 @@ function CaseRoom() {
       </header>
 
       {/* Body */}
-      <div className="grid gap-5 lg:grid-cols-[1fr_340px]">
+      <main className="grid gap-5 lg:grid-cols-[1fr_340px]">
         <div className="space-y-5 min-w-0">
           <ActionPanel view={view} caseId={id} accessKey={accessKey} refresh={() => void refresh()} />
           <CaseRecord view={view} />
@@ -93,7 +93,7 @@ function CaseRoom() {
             waives any right before you sign. Signing is always a human act.
           </p>
         </aside>
-      </div>
+      </main>
     </div>
   );
 }
