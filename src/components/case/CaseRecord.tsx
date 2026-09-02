@@ -3,10 +3,14 @@
 import { CaseView } from "@/lib/types";
 import { formatMoney, timeAgo } from "@/lib/client";
 
-const KIND_ICON: Record<string, string> = {
-  contract: "📄", invoice: "🧾", message: "💬", receipt: "🧾",
-  photo: "📷", document: "📁", other: "📎",
-};
+// Typographic kind tags instead of icons: instantly scannable, no decoration.
+function KindTag({ kind }: { kind: string }) {
+  return (
+    <span className="mt-0.5 inline-block shrink-0 rounded border border-line bg-paper-warm px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-ink-soft">
+      {kind}
+    </span>
+  );
+}
 
 export function CaseRecord({ view }: { view: CaseView }) {
   const yourEvidence = view.evidence.filter(e => e.by === view.yourRole);
@@ -72,7 +76,7 @@ export function CaseRecord({ view }: { view: CaseView }) {
           <ul className="mt-3 space-y-2.5">
             {[...yourEvidence, ...theirEvidence].map(e => (
               <li key={e.id} className="flex gap-3 rounded-lg border border-line-soft bg-paper px-3.5 py-2.5">
-                <span aria-hidden className="text-base leading-6">{KIND_ICON[e.kind] ?? "📎"}</span>
+                <KindTag kind={e.kind} />
                 <div className="min-w-0">
                   <p className="text-sm font-medium">
                     {e.title}

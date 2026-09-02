@@ -31,6 +31,18 @@ function CaseRoom() {
   const { view, error, isLoading, refresh } = useCase(id, accessKey);
   const [agentLog, setAgentLog] = useState<AgentActivity[]>([]);
 
+  // One-time orientation for first-time visitors, per browser.
+  const [showIntro, setShowIntro] = useState(false);
+  useEffect(() => {
+    try {
+      if (!localStorage.getItem("fairground.intro.dismissed")) setShowIntro(true);
+    } catch { /* private mode */ }
+  }, []);
+  const dismissIntro = () => {
+    setShowIntro(false);
+    try { localStorage.setItem("fairground.intro.dismissed", "1"); } catch { /* ignore */ }
+  };
+
   useEffect(() => {
     if (view && accessKey) {
       rememberCase({
@@ -76,6 +88,33 @@ function CaseRoom() {
           <PhaseStepper phase={view.phase} />
         </div>
       </header>
+
+      {showIntro && (
+        <div className="mb-5 rounded-xl border border-forest/25 bg-forest-tint px-5 py-4">
+          <div className="flex items-start justify-between gap-4">
+            <div className="text-sm leading-relaxed text-forest-deep">
+              <p className="font-semibold">New here? Three things to know.</p>
+              <ul className="mt-1.5 space-y-1">
+                <li>
+                  <span className="font-semibold">1.</span> You are the {view.yourRole} in this case.{" "}
+                  {view.vsAi
+                    ? "The other side is played by an AI, so you can rehearse safely."
+                    : "The other party sees this same case from their own side."}
+                </li>
+                <li>
+                  <span className="font-semibold">2.</span> The top panel always shows your one next step.
+                  Everything below it is the shared case record.
+                </li>
+                <li>
+                  <span className="font-semibold">3.</span> Nothing becomes binding until both humans sign
+                  at the end, and your private numbers are never shown to the other side.
+                </li>
+              </ul>
+            </div>
+            <button className="btn btn-quiet shrink-0 text-xs" onClick={dismissIntro}>Got it</button>
+          </div>
+        </div>
+      )}
 
       {/* Body */}
       <main className="grid gap-5 lg:grid-cols-[1fr_340px]">

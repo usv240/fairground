@@ -60,7 +60,7 @@ export default function Landing() {
       rememberCase({ caseId: res.caseId, key: res.yourKey, role: "claimant", title, savedAt: Date.now() });
       router.push(`/case/${res.caseId}?k=${res.yourKey}`);
     } catch (e) {
-      setErr(e instanceof ApiError ? e.message : "Could not open the case — try again.");
+      setErr(e instanceof ApiError ? e.message : "Could not open the case. Please try again.");
       setBusy(false);
     }
   }
@@ -88,10 +88,11 @@ export default function Landing() {
             Justice, for disputes too small for lawyers.
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-soft">
-            The unpaid invoice. The withheld deposit. The refund that never came. For everyday disputes,
-            pursuing what you're owed costs more than the money at stake — so most people give up.
-            On Fairground, you and the other party each bring your own AI advocate to a neutral table:
-            sealed offers, a neutral mediator, and a settlement only humans can sign.{" "}
+            The unpaid invoice. The withheld deposit. The refund that never came. Pursuing an everyday
+            dispute usually costs more than the money at stake, so most people simply give up.
+            Fairground is a neutral online table where <span className="text-ink font-medium">both sides
+            bring their own AI advocate</span>, offers stay sealed, a neutral mediator can step in, and{" "}
+            <span className="text-ink font-medium">only humans can sign</span> the final agreement.{" "}
             <span className="text-ink font-medium">Minutes, not months.</span>
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
@@ -109,9 +110,9 @@ export default function Landing() {
       {/* The problem */}
       <section className="border-y border-line bg-paper-warm">
         <div className="mx-auto grid w-full max-w-6xl gap-6 px-4 py-10 sm:grid-cols-3 sm:px-6">
-          <Stat big="92%" text="of low-income Americans' civil legal problems get no meaningful legal help — the “justice gap.” (Legal Services Corporation)" />
+          <Stat big="92%" text="of low-income Americans' civil legal problems get no meaningful legal help: the “justice gap.” (Legal Services Corporation)" />
           <Stat big="71%" text="of freelancers have struggled to collect payment at least once; most simply write it off. (Freelancers Union)" />
-          <Stat big="60M+" text="disputes a year are already resolved by software at eBay alone — proof structured resolution works at scale." />
+          <Stat big="60M+" text="disputes a year are already resolved by software at eBay alone. Structured resolution works at scale." />
         </div>
       </section>
 
@@ -137,7 +138,7 @@ export default function Landing() {
         <p className="overline-label">One click, no typing</p>
         <h2 className="font-display mt-2 text-3xl tracking-tight">Step into a case</h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-soft">
-          Each button opens a fresh, fully-staged practice case — evidence and all — at a different moment
+          Each button opens a fresh, fully staged practice case, evidence and all, at a different moment
           in the process. Bring your agent, or click around by hand.
         </p>
         <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -153,7 +154,7 @@ export default function Landing() {
             preset="deposit"
             stage="Middle: sealed offers open"
             title="The withheld deposit"
-            text="Your landlord kept $1,200 despite a signed clean checklist — and has already filed their side of the story. You land right at the sealed-envelope table."
+            text="Your landlord kept $1,200 despite a signed clean checklist, and has already filed their side of the story. You land right at the sealed-envelope table."
             onLaunch={launchDemo}
             busyPreset={demoBusy}
           />
@@ -161,7 +162,7 @@ export default function Landing() {
             preset="resolved"
             stage="End: signed & sealed"
             title="See a finished settlement"
-            text="Skip to the ending: a refund dispute already settled at the midpoint of overlapping sealed offers — signatures, plain-language agreement, and the verifiable record seal."
+            text="Skip to the ending: a refund dispute already settled at the midpoint of overlapping sealed offers: signatures, plain-language agreement, and the verifiable record seal."
             onLaunch={launchDemo}
             busyPreset={demoBusy}
           />
@@ -173,11 +174,11 @@ export default function Landing() {
         <p className="overline-label">How it works</p>
         <h2 className="font-display mt-2 text-3xl tracking-tight">Five moves to a signed settlement</h2>
         <div className="mt-8 grid gap-4 md:grid-cols-5">
-          <Step n={1} title="State your case" text="Tell your agent what happened. It assembles the claim and the evidence record with you." />
-          <Step n={2} title="They join by link" text="The other party opens your invite with their own agent, which reviews the record and gives them a private reality check." />
-          <Step n={3} title="Sealed offers" text="Each side privately tells its own agent its true limit. Three rounds of sealed envelopes — overlap settles instantly at the midpoint. Numbers never cross the table." />
-          <Step n={4} title="Neutral mediator" text="No overlap? A neutral mediator studies the whole record — including the sealed history — and puts one fair number on the table." />
-          <Step n={5} title="Humans sign" text="A plain-language agreement is drafted. No tool can sign it. Two humans read, sign, done." />
+          <Step n={1} title="State your case" text="Describe what happened, in plain words. Your AI assistant can assemble the claim and the evidence record for you, or you can type it yourself." />
+          <Step n={2} title="They join by link" text="You send the other party one link. They open it with their own assistant, which reviews your evidence and gives them an honest, private read of their chances." />
+          <Step n={3} title="Sealed offers" text="Each side privately sets a true limit that the other side can never see. Up to three rounds of sealed offers follow. If the two numbers ever overlap, the case settles instantly at the midpoint." />
+          <Step n={4} title="Neutral mediator" text="Still no deal? A neutral mediator reads the full record, including the sealed history neither side can see, and puts one fair number on the table." />
+          <Step n={5} title="Humans sign" text="A plain-language agreement is drafted. No AI can sign it. Two humans read it and sign it themselves. Done." />
         </div>
       </section>
 
@@ -191,15 +192,49 @@ export default function Landing() {
           <div className="mt-8 grid gap-8 md:grid-cols-3">
             <Principle
               title="Due process, enforced by design"
-              text="Each side's agent sees only the tools that are procedurally legal for its role in the current phase. You cannot skip the response. You cannot bid before your human sets a mandate. The tools change as the case advances — that's WebMCP's dynamic tool surface doing the work of a courtroom clerk."
+              text="Each side's agent sees only the tools that are procedurally legal for its role in the current phase. You cannot skip the response. You cannot bid before your human sets a mandate. The tools change as the case advances. That is WebMCP's dynamic tool surface doing the work of a courtroom clerk."
             />
             <Principle
               title="Secrets that stay secret"
-              text="Your walk-away number lives between you and your agent. The server structurally filters each side's view: no tool exists that could leak a sealed offer or a private mandate to the other side — or to a prompt-injected agent."
+              text="Your walk-away number lives between you and your agent. The server structurally filters each side's view: no tool exists that could leak a sealed offer or a private mandate to the other side, or to a prompt-injected agent."
             />
             <Principle
               title="The signature is human"
-              text="Fairground deliberately registers no signing tool. Agents argue, assess, and negotiate; the moment of consent belongs to people. That line — drawn in the tool surface itself — is our answer to what the agentic web should feel like."
+              text="Fairground deliberately registers no signing tool. Agents argue, assess, and negotiate; the moment of consent belongs to people. That line, drawn in the tool surface itself, is our answer to what the agentic web should feel like."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Common questions */}
+      <section id="faq" className="border-t border-line bg-paper-warm">
+        <div className="mx-auto w-full max-w-6xl px-4 py-14 sm:px-6">
+          <p className="overline-label">Common questions</p>
+          <h2 className="font-display mt-2 text-3xl tracking-tight">Before you put anything on the table</h2>
+          <div className="mt-8 grid gap-x-10 gap-y-7 md:grid-cols-2">
+            <Faq
+              q="Is any of this legally binding?"
+              a={<><strong>Nothing is binding until both people sign.</strong> Either side can walk away at any point before that, keeping every right they had, including going to court. The signed agreement at the end is a written settlement contract between you. If the case closes without a deal, you can print the full record; it is exactly the preparation a small claims filing needs.</>}
+            />
+            <Faq
+              q="Can the other side see my limit or my offers?"
+              a={<>No. Your private limit and your sealed offers stay between you, your own AI advocate, and the platform. <strong>The other side only ever learns whether the gap between you grew or shrank</strong>, never the numbers. This is enforced by the server, not by a promise.</>}
+            />
+            <Faq
+              q="Do I need an AI assistant to use this?"
+              a={<>No. <strong>Every step works by hand</strong> with the forms on each page. An assistant simply makes it effortless: in a browser that supports WebMCP (ChatGPT&apos;s browser, or Chrome with the WebMCP flag enabled) you can describe your dispute in plain words and watch it handle the paperwork, while you keep the decisions.</>}
+            />
+            <Faq
+              q="What does it cost?"
+              a={<>Nothing. Fairground is a free, open source project. Compare that to the usual math: a lawyer costs more than most everyday claims, and small claims court takes months.</>}
+            />
+            <Faq
+              q="What if we still do not agree?"
+              a={<>After three sealed rounds and up to two mediator proposals, the case closes. <strong>You lose nothing by trying.</strong> The attempt costs minutes, your rights are untouched, and the organized record you built leaves you better prepared than when you started.</>}
+            />
+            <Faq
+              q="How do I know a signed agreement is real later?"
+              a={<>Every signed settlement carries a record seal, a cryptographic fingerprint printed on the document. Anyone holding a copy can check it against the platform at any time and prove the text was never altered.</>}
             />
           </div>
         </div>
@@ -212,7 +247,7 @@ export default function Landing() {
             <p className="overline-label">Open a case</p>
             <h2 className="font-display mt-2 text-3xl tracking-tight">Put it on the table</h2>
             <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-soft">
-              Fill this in yourself — or, if your browser has WebMCP, just tell your agent
+              Fill this in yourself. Or, if your browser has WebMCP, just tell your agent
               <em> “open a dispute about…”</em> and watch it do this for you. Practice mode lets you
               rehearse the whole process against a realistic AI counterpart before involving the real one.
             </p>
@@ -236,7 +271,7 @@ export default function Landing() {
           <div className="card p-6">
             {err && <p className="mb-3 rounded-lg bg-clay-tint px-3 py-2 text-sm text-clay">{err}</p>}
             <div className="space-y-3">
-              <input className="field" aria-label="Case title" placeholder="Case title — e.g. “Unpaid logo design invoice”"
+              <input className="field" aria-label="Case title" placeholder="Case title, e.g. “Unpaid logo design invoice”"
                 value={title} onChange={e => setTitle(e.target.value)} />
               <textarea className="field min-h-28" aria-label="What happened" placeholder="What happened? Plain language is perfect."
                 value={summary} onChange={e => setSummary(e.target.value)} />
@@ -256,7 +291,7 @@ export default function Landing() {
                 <input type="checkbox" className="mt-0.5" checked={practice} onChange={e => setPractice(e.target.checked)} />
                 <span className="text-sm">
                   <span className="font-medium">Practice mode</span>{" "}
-                  <span className="text-ink-soft">— an AI plays the other side so you can rehearse (recommended first time; also how judges can try the full flow solo).</span>
+                  <span className="text-ink-soft">: an AI plays the other side so you can rehearse. Recommended for your first visit.</span>
                 </span>
               </label>
               <button className="btn btn-primary w-full py-3 text-base" disabled={busy || !title.trim() || !summary.trim() || !amount}
@@ -271,10 +306,10 @@ export default function Landing() {
       {/* Footer */}
       <footer className="border-t border-line bg-paper-warm">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-4 py-8 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p>⚖️ Fairground — built on the open <span className="font-medium">WebMCP</span> standard for The WebMCP Challenge.</p>
+          <p>Fairground is built on the open <span className="font-medium">WebMCP</span> standard for The WebMCP Challenge.</p>
           <p className="max-w-md leading-relaxed">
             Fairground structures voluntary settlement between parties. It is not a law firm and does not
-            provide legal advice; until both humans sign, every right — including going to court — is preserved.
+            provide legal advice; until both humans sign, every right is preserved, including going to court.
           </p>
         </div>
       </footer>
@@ -302,6 +337,15 @@ function DemoCard({
         {busy ? "Setting the table…" : "Open this case →"}
       </p>
     </button>
+  );
+}
+
+function Faq({ q, a }: { q: string; a: React.ReactNode }) {
+  return (
+    <div>
+      <h3 className="text-sm font-semibold">{q}</h3>
+      <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{a}</p>
+    </div>
   );
 }
 

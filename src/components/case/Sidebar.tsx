@@ -19,13 +19,13 @@ export function WebMCPBadge() {
   if (supported === null) return null;
   return supported ? (
     <div className="rounded-lg border border-forest/30 bg-forest-tint px-3.5 py-2.5 text-xs text-forest-deep">
-      <span className="font-semibold">● WebMCP active.</span> This page is exposing live tools to your agent —
-      open your browser's AI side panel and just talk to it about the case.
+      <span className="font-semibold">● WebMCP active.</span> This page is exposing live tools to your
+      agent. Open your browser&apos;s AI side panel and just talk to it about the case.
     </div>
   ) : (
     <div className="rounded-lg border border-line bg-paper-warm px-3.5 py-2.5 text-xs text-ink-soft">
-      <span className="font-semibold">○ Agent tools dormant.</span> Everything works by hand — but Fairground
-      shines with an agent. Open this page in ChatGPT's browser, or Chrome 149+ with{" "}
+      <span className="font-semibold">○ Agent tools dormant.</span> Everything works by hand, but
+      Fairground shines with an agent. Open this page in ChatGPT&apos;s browser, or Chrome 149+ with{" "}
       <code className="text-[11px]">chrome://flags/#enable-webmcp-testing</code>.
     </div>
   );
@@ -39,7 +39,7 @@ export function InvitePanel({ view }: { view: CaseView }) {
     <div className="card p-4">
       <p className="overline-label">Invite the other party</p>
       <p className="mt-1.5 text-xs text-ink-soft leading-relaxed">
-        Send them this link any way you like. They open it with <em>their own</em> agent — Fairground
+        Send them this link any way you like. They open it with <em>their own</em> agent, and Fairground
         shows each side only its own private information.
       </p>
       <div className="mt-2.5 flex gap-2">
@@ -65,14 +65,14 @@ export function AgentFeed({ activities }: { activities: AgentActivity[] }) {
       <p className="overline-label">Your agent on this page</p>
       {activities.length === 0 ? (
         <p className="mt-2 text-xs text-ink-faint leading-relaxed">
-          When your agent uses the case tools, every move it makes appears here — you always see what is
-          done in your name.
+          When your agent uses the case tools, every move it makes appears here, so you always see what
+          is done in your name.
         </p>
       ) : (
         <ul className="mt-2 space-y-1.5 max-h-56 overflow-y-auto">
           {[...activities].reverse().map((a, i) => (
             <li key={i} className="flex items-start gap-2 text-xs">
-              <span className="mt-0.5" aria-hidden>🤖</span>
+              <span aria-hidden className="mt-1.5 step-dot shrink-0 bg-forest" />
               <div>
                 <p className="text-ink">{a.summary}</p>
                 <p className="text-[10px] text-ink-faint">{a.tool} · {timeAgo(a.at)}</p>

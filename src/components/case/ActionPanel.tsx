@@ -26,7 +26,7 @@ export function ActionPanel({
       await fn();
       refresh();
     } catch (e) {
-      setFlash({ kind: "err", text: e instanceof ApiError ? e.message : "Something went wrong — try again." });
+      setFlash({ kind: "err", text: e instanceof ApiError ? e.message : "Something went wrong. Please try again." });
     } finally {
       setBusy(false);
     }
@@ -66,7 +66,7 @@ export function ActionPanel({
           title={view.vsAi ? "The practice counterpart is reviewing" : "Waiting for the other party"}
           body={view.vsAi
             ? "The AI counterpart is reading your claim and will file a formal response in a moment."
-            : "Your claim has been served. Share the invite link (right panel) with the other party — you'll see their response here the moment they file it."}
+            : "Your claim has been served. Share the invite link (right panel) with the other party. Their response will appear here the moment they file it."}
         />
       )}
 
@@ -91,7 +91,7 @@ export function ActionPanel({
           <p className="overline-label text-clay">Case closed without settlement</p>
           <p className="mt-2 text-sm leading-relaxed text-ink-soft">
             Mediation did not produce agreement. Nothing here waived any rights: the full case record on this
-            page — claim, response, evidence, and the fact that settlement was attempted in good faith — is
+            page (claim, response, evidence, and the fact that settlement was attempted in good faith) is
             exactly the preparation a small-claims filing needs. Print this page for your records.
           </p>
           <button className="btn btn-quiet mt-4" onClick={() => window.print()}>Print case record</button>
@@ -121,19 +121,19 @@ function AutopilotBar({
     try {
       for (let step = 0; step < 16 && !stopRef.current; step++) {
         const mine = await apiAi(caseId, accessKey, "autopilot_step");
-        if (mine.acted) push(`⚡ ${mine.acted}`);
+        if (mine.acted) push(mine.acted);
         refresh();
         if (["agreement", "resolved", "closed"].includes(mine.phase)) break;
         await wait(1400);
         if (stopRef.current) break;
         const theirs = await apiAi(caseId, accessKey, "opponent_step");
-        if (theirs.acted && !/Nothing for/.test(theirs.acted)) push(`◦ ${theirs.acted}`);
+        if (theirs.acted && !/Nothing for/.test(theirs.acted)) push(theirs.acted);
         refresh();
         await wait(1400);
       }
-      push("Autopilot finished. Anything that remains — reviewing, signing — is yours.");
+      push("Autopilot finished. Anything that remains, like reviewing and signing, is yours.");
     } catch {
-      push("Autopilot paused on an error — every move so far is saved. You can continue by hand.");
+      push("Autopilot paused on an error. Every move so far is saved; you can continue by hand.");
     } finally {
       setRunning(false);
       refresh();
@@ -144,11 +144,12 @@ function AutopilotBar({
     <div className="card border-forest/40 p-5">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0 flex-1 basis-64">
-          <p className="overline-label text-forest">⚡ Autopilot — bounded by your mandate</p>
+          <p className="overline-label text-forest">Autopilot, bounded by your mandate</p>
           <p className="mt-1.5 text-xs leading-relaxed text-ink-soft">
-            Let the two advocates run the whole procedure — sealed rounds, signals, mediation — automatically.
-            Yours never concedes past your private {view.yourRole === "claimant" ? "floor" : "ceiling"} of{" "}
-            <span className="font-semibold">{formatMoney(view.yourMandate!.limit)}</span>, and no one can sign but you.
+            Let the two advocates run the whole procedure (sealed rounds, signals, mediation) automatically.
+            Yours <span className="font-semibold">never concedes past your private{" "}
+            {view.yourRole === "claimant" ? "floor" : "ceiling"} of {formatMoney(view.yourMandate!.limit)}</span>,
+            and no one can sign but you.
           </p>
         </div>
         {!running ? (
@@ -197,12 +198,12 @@ function IntakePanel({
     <div className="card p-5">
       <p className="overline-label">Build the record, then serve the claim</p>
       <p className="mt-2 text-sm text-ink-soft leading-relaxed">
-        Add each piece of evidence you have — contracts, invoices, messages, receipts. You can do this by
+        Add each piece of evidence you have: contracts, invoices, messages, receipts. You can do this by
         hand here, or simply tell your agent what you have and let it file everything for you.
       </p>
 
       <div className="mt-4 space-y-2.5">
-        <input className="field" aria-label="Evidence title" placeholder="Evidence title — e.g. “Signed contract, March 3”"
+        <input className="field" aria-label="Evidence title" placeholder="Evidence title, e.g. “Signed contract, March 3”"
           value={evTitle} onChange={e => setEvTitle(e.target.value)} />
         <textarea className="field min-h-20" aria-label="What the evidence shows" placeholder="What does it show, and why does it matter?"
           value={evDesc} onChange={e => setEvDesc(e.target.value)} />
@@ -257,7 +258,7 @@ function RespondPanel({
       <div className="card p-5">
         <p className="overline-label">Your formal response</p>
         <p className="mt-2 text-sm text-ink-soft leading-relaxed">
-          A claim has been made against you. Respond formally — or ask your agent for a private
+          A claim has been made against you. Respond formally, or first ask your agent for a private
           reality check first, so you know where you actually stand.
         </p>
 
@@ -316,7 +317,7 @@ function RespondPanel({
 function RealityCheckCard({ a }: { a: Assessment }) {
   return (
     <div className="card p-5 border-brass/40">
-      <p className="overline-label text-brass">Private reality check — your side only</p>
+      <p className="overline-label text-brass">Private reality check · your side only</p>
       <div className="mt-3 grid gap-3 sm:grid-cols-2 text-sm">
         <div>
           <p className="font-semibold text-forest">Strengths</p>
@@ -353,7 +354,7 @@ function NegotiationPanel({
     <div className="space-y-4">
       <div className="card p-5">
         <div className="flex items-center justify-between">
-          <p className="overline-label">Sealed offers — round {o.round} of {MAX_ROUNDS}</p>
+          <p className="overline-label">Sealed offers · round {o.round} of {MAX_ROUNDS}</p>
           <span className="text-xs text-ink-faint">numbers never cross the table</span>
         </div>
 
@@ -367,7 +368,7 @@ function NegotiationPanel({
           <div className="mt-4 space-y-1.5">
             {view.roundSignals.map(s => (
               <p key={s.round} className="text-xs rounded-md bg-paper-warm px-3 py-1.5 text-ink-soft">
-                Round {s.round}: no overlap — the gap {s.gapDirection === "first" ? "was measured" : `${s.gapDirection}${s.gapChangePct != null ? ` by ${s.gapChangePct}%` : ""}`}. Amounts stay sealed.
+                Round {s.round}: no overlap. The gap {s.gapDirection === "first" ? "was measured" : `${s.gapDirection}${s.gapChangePct != null ? ` by ${s.gapChangePct}%` : ""}`}. Amounts stay sealed.
               </p>
             ))}
           </div>
@@ -378,8 +379,8 @@ function NegotiationPanel({
             <p className="text-sm font-semibold">First: set your private mandate</p>
             <p className="mt-1 text-xs text-ink-soft leading-relaxed">
               {isClaimant
-                ? "The lowest amount you would truly accept. Your agent cannot bid below it without coming back to you — and the other side can never see it."
-                : "The highest amount you would truly pay. Your agent cannot bid above it without coming back to you — and the other side can never see it."}
+                ? "The lowest amount you would truly accept. Your agent cannot bid below it without coming back to you, and the other side can never see it."
+                : "The highest amount you would truly pay. Your agent cannot bid above it without coming back to you, and the other side can never see it."}
             </p>
             <div className="mt-2.5 flex gap-2.5">
               <input className="field" type="number" min={0} aria-label="Your private limit in US dollars" placeholder={isClaimant ? "Your floor (USD)" : "Your ceiling (USD)"}
@@ -443,10 +444,17 @@ function NegotiationPanel({
 function SealedSlot({ label, submitted, yours }: { label: string; submitted: boolean; yours?: boolean }) {
   return (
     <div className={`rounded-lg border px-3.5 py-3 text-center ${submitted ? "border-forest/40 bg-forest-tint" : "border-dashed border-line bg-paper"}`}>
-      <p className="text-lg" aria-hidden>{submitted ? "✉️" : "▢"}</p>
-      <p className="mt-0.5 text-xs font-medium">{label}</p>
+      <p
+        aria-hidden
+        className={`mx-auto inline-block rounded border px-2 py-0.5 font-display text-[11px] uppercase tracking-[0.18em] ${
+          submitted ? "border-forest text-forest" : "border-line text-ink-faint"
+        }`}
+      >
+        {submitted ? "Sealed" : "Empty"}
+      </p>
+      <p className="mt-1.5 text-xs font-medium">{label}</p>
       <p className={`text-[11px] ${submitted ? "text-forest font-semibold" : "text-ink-faint"}`}>
-        {submitted ? "sealed & submitted" : yours ? "not yet submitted" : "pending"}
+        {submitted ? "submitted this round" : yours ? "not yet submitted" : "pending"}
       </p>
     </div>
   );
@@ -475,13 +483,13 @@ function MediationPanel({
           <p className="mt-2 text-sm text-ink-soft leading-relaxed">
             {declined
               ? "The first proposal was declined. The mediator can issue one final revised proposal."
-              : "Sealed rounds ended without overlap. The mediator will study the whole record — including, like a real mediator in caucus, the sealed offer history — and put one number on the table."}
+              : "Sealed rounds ended without overlap. The mediator will study the whole record, including the sealed offer history that neither side can see, and put one number on the table."}
           </p>
           <button className="btn btn-primary mt-4" disabled={busy}
             onClick={() => run(() => apiAi(caseId, accessKey, "mediator_propose"))}>
             {busy ? "The mediator is reviewing the full record…" : declined ? "Request final proposal" : "Bring in the mediator"}
           </button>
-          {busy && <p className="mt-2 text-xs text-ink-faint seal-pulse">Weighing evidence, sealed history, and both accounts — usually 10–20 seconds.</p>}
+          {busy && <p className="mt-2 text-xs text-ink-faint seal-pulse">Weighing evidence, sealed history, and both accounts. This usually takes 10 to 20 seconds.</p>}
         </>
       ) : (
         <>
