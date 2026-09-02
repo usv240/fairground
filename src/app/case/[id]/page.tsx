@@ -79,7 +79,9 @@ function CaseRoom() {
 
       {/* Body */}
       <main className="grid gap-5 lg:grid-cols-[1fr_340px]">
-        <div className="space-y-5 min-w-0">
+        {/* When a case closes unresolved, the whole record becomes the printable
+            court-prep document (the agreement sheet plays that role otherwise). */}
+        <div className={`space-y-5 min-w-0 ${view.phase === "closed" ? "print-sheet" : ""}`}>
           <ActionPanel view={view} caseId={id} accessKey={accessKey} refresh={() => void refresh()} />
           <CaseRecord view={view} />
         </div>

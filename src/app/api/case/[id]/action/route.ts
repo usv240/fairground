@@ -76,7 +76,7 @@ export async function POST(
         ? "Claim finalized. Practice counterpart is preparing a response."
         : "Claim finalized and invite issued to the respondent.");
       message = c.vsAi
-        ? "Claim sent. The practice respondent (AI) will now review and respond — check get_case_status in a moment."
+        ? "Claim sent. The practice respondent (AI) is reviewing it now — its formal response will appear here in a moment."
         : "Claim sent. Share the invite link (shown on the page and in your case view) with the other party.";
       break;
     }

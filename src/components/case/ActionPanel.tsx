@@ -142,8 +142,8 @@ function AutopilotBar({
 
   return (
     <div className="card border-forest/40 p-5">
-      <div className="flex items-start justify-between gap-4">
-        <div>
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0 flex-1 basis-64">
           <p className="overline-label text-forest">⚡ Autopilot — bounded by your mandate</p>
           <p className="mt-1.5 text-xs leading-relaxed text-ink-soft">
             Let the two advocates run the whole procedure — sealed rounds, signals, mediation — automatically.

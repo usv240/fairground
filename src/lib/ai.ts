@@ -40,6 +40,7 @@ export async function realityCheck(c: DisputeCase, role: Role) {
   try {
     const { object } = await generateObject({
       model: openai()(MODEL),
+      abortSignal: AbortSignal.timeout(35000),
       schema: z.object({
         strengths: z.array(z.string()).min(1).max(4).describe("Strongest points for THIS party, grounded in the record"),
         weaknesses: z.array(z.string()).min(1).max(4).describe("Genuine risks for THIS party if this went to small-claims court"),
@@ -102,6 +103,7 @@ export async function mediatorProposal(c: DisputeCase) {
       : "";
     const { object } = await generateObject({
       model: openai()(MODEL),
+      abortSignal: AbortSignal.timeout(35000),
       schema: z.object({
         amount: z.number().describe(`Proposed settlement amount in whole dollars. MUST be between ${lo} and ${hi}.`),
         rationale: z.string().describe("3-5 sentences addressed to BOTH parties explaining why this number is fair, citing the record and what each side avoids by settling. Even-handed tone."),
@@ -159,6 +161,7 @@ export async function draftAgreement(c: DisputeCase, fast = false): Promise<{ dr
   try {
     const { object } = await generateObject({
       model: openai()(MODEL),
+      abortSignal: AbortSignal.timeout(35000),
       schema: z.object({
         draft: z.string().describe("The complete settlement agreement text, plain language, under 450 words, with BACKGROUND / RESOLUTION / TERMS / EFFECT sections. Refer to the parties only as Claimant and Respondent."),
       }),
@@ -187,6 +190,7 @@ export async function opponentPersona(c: DisputeCase) {
   try {
     const { object } = await generateObject({
       model: openai()(MODEL),
+      abortSignal: AbortSignal.timeout(35000),
       schema: z.object({
         story: z.string().describe("The respondent's plausible 3-5 sentence account of events, pushing back on parts of the claim without being cartoonish"),
         ceilingFraction: z.number().min(0.6).max(0.9).describe("The maximum fraction of the claim this respondent would realistically pay to settle, given the record. Stronger claimant evidence means a higher fraction."),
