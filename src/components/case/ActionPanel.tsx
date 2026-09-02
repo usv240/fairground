@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CaseView, MAX_ROUNDS } from "@/lib/types";
 import { apiAction, apiAi, formatMoney, ApiError } from "@/lib/client";
 
@@ -70,6 +70,10 @@ export function ActionPanel({
         />
       )}
 
+      {view.vsAi && view.yourMandate && (view.phase === "negotiation" || view.phase === "mediation") && (
+        <AutopilotBar view={view} caseId={caseId} accessKey={accessKey} refresh={refresh} />
+      )}
+
       {view.phase === "negotiation" && (
         <NegotiationPanel view={view} busy={busy} act={act} caseId={caseId} accessKey={accessKey} />
       )}
@@ -92,6 +96,78 @@ export function ActionPanel({
           </p>
           <button className="btn btn-quiet mt-4" onClick={() => window.print()}>Print case record</button>
         </div>
+      )}
+    </div>
+  );
+}
+
+// ─── ⚡ Autopilot: agents run the procedure; humans keep the consent ────────
+
+function AutopilotBar({
+  view, caseId, accessKey, refresh,
+}: {
+  view: CaseView; caseId: string; accessKey: string; refresh: () => void;
+}) {
+  const [running, setRunning] = useState(false);
+  const [feed, setFeed] = useState<string[]>([]);
+  const stopRef = useRef(false);
+
+  async function runAutopilot() {
+    setRunning(true);
+    setFeed([]);
+    stopRef.current = false;
+    const push = (s: string) => setFeed(f => [...f.slice(-5), s]);
+    const wait = (ms: number) => new Promise(r => setTimeout(r, ms));
+    try {
+      for (let step = 0; step < 16 && !stopRef.current; step++) {
+        const mine = await apiAi(caseId, accessKey, "autopilot_step");
+        if (mine.acted) push(`⚡ ${mine.acted}`);
+        refresh();
+        if (["agreement", "resolved", "closed"].includes(mine.phase)) break;
+        await wait(1400);
+        if (stopRef.current) break;
+        const theirs = await apiAi(caseId, accessKey, "opponent_step");
+        if (theirs.acted && !/Nothing for/.test(theirs.acted)) push(`◦ ${theirs.acted}`);
+        refresh();
+        await wait(1400);
+      }
+      push("Autopilot finished. Anything that remains — reviewing, signing — is yours.");
+    } catch {
+      push("Autopilot paused on an error — every move so far is saved. You can continue by hand.");
+    } finally {
+      setRunning(false);
+      refresh();
+    }
+  }
+
+  return (
+    <div className="card border-forest/40 p-5">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <p className="overline-label text-forest">⚡ Autopilot — bounded by your mandate</p>
+          <p className="mt-1.5 text-xs leading-relaxed text-ink-soft">
+            Let the two advocates run the whole procedure — sealed rounds, signals, mediation — automatically.
+            Yours never concedes past your private {view.yourRole === "claimant" ? "floor" : "ceiling"} of{" "}
+            <span className="font-semibold">{formatMoney(view.yourMandate!.limit)}</span>, and no one can sign but you.
+          </p>
+        </div>
+        {!running ? (
+          <button className="btn btn-primary shrink-0" onClick={runAutopilot}>
+            Let the agents negotiate
+          </button>
+        ) : (
+          <button className="btn btn-quiet shrink-0" onClick={() => { stopRef.current = true; }}>
+            Stop
+          </button>
+        )}
+      </div>
+      {feed.length > 0 && (
+        <ul className="mt-3 space-y-1 border-t border-line-soft pt-3">
+          {feed.map((f, i) => (
+            <li key={i} className={`text-xs ${i === feed.length - 1 ? "text-ink" : "text-ink-faint"}`}>{f}</li>
+          ))}
+          {running && <li className="text-xs text-forest seal-pulse">negotiating…</li>}
+        </ul>
       )}
     </div>
   );
@@ -472,7 +548,8 @@ function AgreementPanel({
 
   return (
     <div className="space-y-4">
-      <div className="card p-6 print-sheet">
+      <div className="card relative p-6 print-sheet">
+        {resolved && <span aria-hidden className="stamp">Resolved</span>}
         <p className="overline-label">Settlement agreement{resolved ? " — fully signed" : ""}</p>
         <div className="mt-3 whitespace-pre-wrap font-display text-[15px] leading-relaxed">{a.draft}</div>
         <div className="mt-5 grid grid-cols-2 gap-4 border-t border-line pt-4 text-sm">

@@ -77,6 +77,74 @@ export async function POST(
     });
   }
 
+  if (task === "autopilot_step") {
+    // ⚡ Autopilot: the claimant's advocate performs its next procedural move
+    // automatically, guided ONLY by the human's private mandate. Practice
+    // cases only; never bids below the floor; never signs — that stays human.
+    if (!c.vsAi) return NextResponse.json({ error: "Autopilot runs on practice cases only." }, { status: 409 });
+    if (role !== "claimant") return NextResponse.json({ error: "Autopilot acts for the claimant side." }, { status: 403 });
+    const mandate = c.mandates.claimant;
+    if (!mandate) return NextResponse.json({ error: "Set your private mandate first — autopilot never negotiates without your limit." }, { status: 409 });
+
+    let acted = "";
+    const floor = mandate.limit;
+
+    if (c.phase === "negotiation") {
+      const { ask } = offersForRound(c, c.round);
+      if (!ask) {
+        const schedule = [0.92, 0.82, 0.72];
+        const fraction = schedule[Math.min(c.round - 1, 2)];
+        const amount = Math.max(Math.round(c.claim.amount * fraction), Math.round(floor * 1.02));
+        c.offers.push({ round: c.round, by: "claimant", amount, note: "autopilot", at: Date.now() });
+        log(c, "system", `claimant's advocate (autopilot) submitted a sealed offer for round ${c.round}. (Amount sealed.)`);
+        const before = c.round;
+        const result = resolveRoundIfComplete(c);
+        const phaseNow: string = c.phase; // resolveRoundIfComplete may advance it
+        acted = result.settled
+          ? `Your advocate's sealed offer overlapped with theirs — settled at $${c.settledAmount}.`
+          : c.round !== before || phaseNow === "mediation"
+            ? `Round ${before} closed without overlap.`
+            : `Your advocate sealed its round-${c.round} offer. Waiting for the other side.`;
+      }
+    } else if (c.phase === "mediation") {
+      const prop = c.mediatorProposals[c.mediatorProposals.length - 1];
+      if (prop && !prop.responses.claimant) {
+        const decision = prop.amount >= Math.round(floor * 0.95) ? "accept" : "decline";
+        prop.responses.claimant = decision;
+        log(c, "claimant", `claimant's advocate (autopilot) ${decision === "accept" ? "accepted" : "declined"} the mediator's proposal of $${prop.amount} (within mandate: ${decision === "accept" ? "yes" : "no"}).`);
+        const other = prop.responses.respondent;
+        if (decision === "accept" && other === "accept") {
+          c.settledAmount = prop.amount;
+          c.settledVia = "mediation";
+          c.phase = "agreement";
+          log(c, "system", `Both parties accepted the mediator's proposal. Settlement fixed at $${prop.amount}.`);
+        } else if (decision === "decline" && c.mediatorProposals.length >= 2) {
+          c.phase = "closed";
+          log(c, "system", "Second mediator proposal declined. Case closed unresolved.");
+        }
+        acted = `Your advocate ${decision === "accept" ? "accepted" : "declined"} the mediator's $${prop.amount} proposal against your private floor.`;
+      } else if (!prop || (Object.values(prop.responses).includes("decline") && c.mediatorProposals.length < 2)) {
+        const p = await mediatorProposal(c);
+        c.mediatorProposals.push({ id: newId("mp"), amount: p.amount, rationale: p.rationale, terms: p.terms, at: Date.now(), responses: {} });
+        log(c, "mediator", `Mediator issued ${c.mediatorProposals.length === 2 ? "a final revised" : "a"} proposal: $${p.amount}.`);
+        acted = `The mediator put $${p.amount} on the table.`;
+      }
+    } else if (c.phase === "agreement" && !c.agreement) {
+      const { draft, terms } = await draftAgreement(c);
+      c.agreement = { draft, terms, amount: c.settledAmount ?? 0, signatures: {} };
+      log(c, "mediator", "Settlement agreement drafted for both parties to review and sign.");
+      acted = "Agreement drafted. Autopilot stops here — the signature is yours alone.";
+    }
+
+    await saveCase(c);
+    return NextResponse.json({
+      ok: true,
+      acted: acted || (c.phase === "agreement" ? "Autopilot is done — the signature is yours alone." : "Waiting on the other side."),
+      phase: c.phase,
+      view: viewFor(c, "claimant", origin),
+    });
+  }
+
   if (task === "opponent_step") {
     // Practice mode only: the platform plays a realistic respondent so a
     // single person (or judge) can experience the full two-sided process.
