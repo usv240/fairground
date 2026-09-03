@@ -1,6 +1,6 @@
 # Fairground demo: shooting script
 
-Target 2:50. Hard cap 3:00. Narration is ~340 words. **Time your rehearsal with a stopwatch** — the margin is thinner now, so cut every pause where nothing changes on screen.
+Target 2:40. Hard cap 3:00. Narration is 355 words, about 2:32 of speech at a calm pace, leaving roughly 25 seconds for clicks, page loads and pauses. **Time your rehearsal with a stopwatch.**
 
 Setup: **ChatGPT's in-app browser**, the "Do anything" bar at the bottom is where you type. Confirmed working.
 
@@ -25,7 +25,7 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 **NAVIGATE:** Start on the landing page. Scroll slowly past the Docket strip, then **click the demo card "The withheld deposit."** You are inside a live case by second 15.
 
 **SAY:**
-> **"Maya's landlord kept her twelve hundred dollar deposit, even though she passed the move-out inspection. A lawyer costs more than the deposit. Small claims court takes months. Most people facing disputes this small receive no legal help at all, so many simply give up. This is Fairground: a neutral resolution room where both sides bring their own AI advocate."**
+> **"Maya's landlord kept her twelve hundred dollar deposit, even though she passed the move-out inspection. A lawyer costs more than the deposit, and small claims court takes months. Most people facing disputes this small get no legal help at all, so many simply give up. This is Fairground: a neutral resolution room where both sides bring their own AI advocate."**
 
 ---
 
@@ -43,7 +43,7 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 3. **Left panel:** *"Private mandate on file: floor $800."*
 
 **SAY:**
-> **"I just talk. My agent is using this page's WebMCP tools: reading the claim, running a private reality check, and sealing my bottom line at eight hundred dollars. The case log records that it happened, but never the number. Only I can see that. Here is the core idea: the page decides which tools exist, based on who I am and where the case stands. My agent cannot see the landlord's numbers. It cannot skip a step. And there is no signing tool at all. The procedure is the tool surface."**
+> **"I just talk. My agent is using this page's WebMCP tools: reading the claim, running a private reality check, and sealing my bottom line at eight hundred dollars. The case log records that it happened, but never the number. Only I can see that. Here is the core idea: the page decides which tools exist, based on who I am and where the case stands. My agent cannot see the landlord's numbers. And there is no signing tool at all. The procedure is the tool surface."**
 
 ---
 
@@ -92,7 +92,7 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 **SHOW:** The two windows together. **POINT AT** the badge in each: **"You are the claimant"** on the left, **"You are the respondent"** on the right. Both show **"WebMCP active, tools registered."**
 
 **SAY:**
-> **"That was practice mode. In a real case you send one link. The other party opens it with their own agent, which reviews the record and gives them their own private reality check. Same table, two advocates, and neither side ever sees the other's numbers."**
+> **"That was practice mode. In a real case you send one link. The other party opens it with their own agent. Same table, two advocates, and neither side ever sees the other's numbers."**
 
 ---
 
@@ -101,7 +101,7 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 **NAVIGATE:** Back to the landing page. **POINT AT** the Docket counter. **END ON** the hero headline, held two seconds.
 
 **SAY:**
-> **"In product testing, thirty simulated disputes ran end to end through this live deployment. Every one reached settlement, in under a minute each. Each settlement feeds this public docket as anonymous totals, including the one you just watched. Two opposing agents, one neutral page, and a signature only a human can give. Justice, for disputes too small for lawyers. Fairground."**
+> **"In product testing, thirty simulated disputes ran end to end through this live deployment. Every one reached settlement, in under a minute each. They feed this public docket as anonymous totals, including the one you just watched. Two opposing agents, one neutral page, and a signature only a human can give. Justice, for disputes too small for lawyers. Fairground."**
 
 ---
 
@@ -124,7 +124,7 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 | Agent says it cannot reach the page | Relaunch ChatGPT's browser, reopen the case |
 | Agent is slow | Cut the wait in editing. Never show dead air |
 | Autopilot settles by overlap instead of mediation | Say **"the two sealed offers overlapped, so it settled instantly at the midpoint"** and skip the mediator lines |
-| Running past 2:55 | Cut **"It cannot skip a step"** and **"The procedure is the tool surface"** from Scene 2, then the phrase **"which reviews the record and gives them their own private reality check"** from Scene 5. Always keep **"There is no signing tool at all."** |
+| Running past 2:50 | Cut, in this order: **"The procedure is the tool surface"** (Scene 2), **"Same table, two advocates"** (Scene 5), **"They feed this public docket as anonymous totals, including the one you just watched"** (Scene 6). Always keep **"There is no signing tool at all."** |
 
 ## Two gates before upload
 
