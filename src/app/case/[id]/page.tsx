@@ -29,7 +29,24 @@ function CaseRoom() {
   );
 
   const { view, error, isLoading, refresh } = useCase(id, accessKey);
+  // Agent activity persists per case, so a reload (or the agent navigating the
+  // page) does not erase the record of what was done in your name.
+  const logKey = `fairground.agentlog.${id}`;
   const [agentLog, setAgentLog] = useState<AgentActivity[]>([]);
+
+  useEffect(() => {
+    try {
+      const saved = sessionStorage.getItem(logKey);
+      if (saved) setAgentLog(JSON.parse(saved));
+    } catch { /* private mode */ }
+  }, [logKey]);
+
+  const recordAgentAction = (a: AgentActivity) =>
+    setAgentLog(prev => {
+      const next = [...prev, a].slice(-30);
+      try { sessionStorage.setItem(logKey, JSON.stringify(next)); } catch { /* ignore */ }
+      return next;
+    });
 
   // One-time orientation for first-time visitors, per browser.
   const [showIntro, setShowIntro] = useState(false);
@@ -68,7 +85,7 @@ function CaseRoom() {
     <div className="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6">
       <CaseAgentTools
         view={view} caseId={id} accessKey={accessKey}
-        onAct={a => setAgentLog(l => [...l, a])}
+        onAct={recordAgentAction}
         refresh={() => void refresh()}
       />
 
