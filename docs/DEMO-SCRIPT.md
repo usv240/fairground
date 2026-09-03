@@ -1,6 +1,6 @@
 # Fairground demo: shooting script
 
-Target 2:35. Hard cap 3:00. Narration is 330 words, about 2:21 of speech at a calm pace, leaving roughly 40 seconds for clicks, page loads and pauses. **Time your rehearsal with a stopwatch.**
+Target 2:40. Hard cap 3:00. Narration is 344 words, about 2:27 of speech at a calm pace, leaving roughly 33 seconds for clicks, page loads and pauses. **Time your rehearsal with a stopwatch.**
 
 Setup: **ChatGPT's in-app browser**, the "Do anything" bar at the bottom is where you type. Confirmed working.
 
@@ -85,14 +85,25 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 
 ---
 
-## Scene 5 (2:20 to 2:35) Both sides, for real [C][E]
+## Scene 5 (2:20 to 2:40) Both sides, for real [C][E]
 
-**Prepare this before recording** (see setup below): two browser windows side by side, a real two-party case.
+Show the mechanism, do not just claim it. Four beats, about eighteen seconds. Everything is pre-staged (see setup below), so this is only clicking and pasting.
 
-**SHOW:** The two windows together. **POINT AT** the badge in each: **"You are the claimant"** on the left, **"You are the respondent"** on the right. Both show **"WebMCP active, tools registered."**
+**BEAT 1 — NAVIGATE** to the pre-staged **real** case in window one. **POINT AT** the right column card **"Invite the other party"**.
 
-**SAY:**
-> **"That was practice mode. In a real case you send one link. The other party opens it with their own agent. Same table, two advocates, and neither side ever sees the other's numbers."**
+**BEAT 2 — CLICK "Copy."** The button flips to **"Copied ✓"**.
+
+**BEAT 3 — SWITCH** to window two. **PASTE** into the address bar and press Enter.
+
+**BEAT 4 — THE RESPONDENT'S CASE ROOM LOADS.** Point at three things quickly:
+- The badge, now reading **"You are the respondent"** (it said claimant one second ago)
+- Their own **"Private reality check"** button
+- The evidence, labelled **"other side"** from their point of view
+
+**SAY** (start on Beat 1, land the last line as the respondent page appears):
+> **"That was practice mode. In a real case, I copy one link and send it. They open the same case from their own side, with their own agent and their own private reality check. Neither side ever sees the other's numbers."**
+
+> Jump-cut the page load between Beats 3 and 4. Never show a loading screen.
 
 ---
 
@@ -108,12 +119,14 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 ## Setup for Scene 5 (do this before you record)
 
 1. On the landing page, fill the form and **uncheck "Practice mode"**. Open the case.
-2. In the right column, copy the **invite link** from "Invite the other party".
-3. Open a **second window** (a different browser profile, or Incognito) and paste the link.
-4. Arrange the two windows side by side. Left shows **"You are the claimant"**, right shows **"You are the respondent"** with the claim against them and their **"Private reality check"** button.
-5. Leave both open. When you reach Scene 5, cut to this shot.
+2. **Add one piece of evidence** (title and a line of description). Without it the respondent's record is empty and Beat 4 has nothing to point at.
+3. Click **"Serve claim"**. The **"Invite the other party"** card now appears in the right column. This step is required: the card stays hidden during intake.
+4. Open a **second window** (a different browser profile, or Incognito) and leave it on any page. Do **not** paste the link yet, so the reveal is live on camera.
+5. Position the windows so you can switch between them quickly.
 
-> Keep it to one shot and one breath. This beat exists only to prove the two-party claim is real, not to run a second negotiation.
+> Do not let the respondent file a response during setup. The invite card disappears once they do.
+
+> Keep this beat to one breath. It exists to prove the two-party claim is real, not to run a second negotiation.
 
 ---
 
