@@ -121,7 +121,20 @@ export function ActionPanel({
             page (claim, response, evidence, and the fact that settlement was attempted in good faith) is
             exactly the preparation a small-claims filing needs. Print this page for your records.
           </p>
-          <button className="btn btn-quiet mt-4" onClick={() => window.print()}>Print case record</button>
+          <div className="mt-4 flex flex-wrap gap-2.5">
+            <a
+              className="btn btn-primary"
+              href={`/api/case/${caseId}/export?k=${encodeURIComponent(accessKey)}`}
+              download
+            >
+              Download court-prep record
+            </a>
+            <button className="btn btn-quiet" onClick={() => window.print()}>Print this page</button>
+          </div>
+          <p className="mt-2 text-xs text-ink-faint">
+            The download is a dated, structured summary: the claim, the response, every evidence item,
+            your own sealed offers, and an attestation that settlement was attempted in good faith.
+          </p>
         </div>
       )}
     </div>

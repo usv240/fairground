@@ -439,6 +439,21 @@ export function CaseAgentTools({
   });
 
   useWebMCP({
+    name: "export_case_record",
+    description:
+      "Get the court-preparation record for your side: the claim, the response, every evidence item with dates, the correspondence, the settlement attempt, and an attestation that resolution was attempted in good faith. Use this when your human wants to take an unresolved case further, or wants a permanent record of a resolved one. Contains your own sealed offers; the other side's remain sealed.",
+    annotations: { readOnlyHint: true },
+    enabled: phase === "closed" || phase === "resolved",
+    inputSchema: { type: "object", properties: {} },
+    execute: async () => {
+      const res = await fetch(`/api/case/${caseId}/export?k=${encodeURIComponent(accessKey)}`);
+      const text = await res.text();
+      act("export_case_record", "Generated the court-preparation record");
+      return text.slice(0, 6000);
+    },
+  });
+
+  useWebMCP({
     name: "verify_settlement_record",
     description:
       "Verify that a copy of this settlement is authentic: checks a presented SHA-256 record seal against the sealed record on file. Works for any holder of the document — proves the agreement was not altered after signing.",
