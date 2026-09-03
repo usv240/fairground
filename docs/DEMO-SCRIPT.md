@@ -1,6 +1,6 @@
 # Fairground demo: shooting script
 
-Target 2:40. Hard cap 3:00. Narration is 355 words, about 2:32 of speech at a calm pace, leaving roughly 25 seconds for clicks, page loads and pauses. **Time your rehearsal with a stopwatch.**
+Target 2:35. Hard cap 3:00. Narration is 330 words, about 2:21 of speech at a calm pace, leaving roughly 40 seconds for clicks, page loads and pauses. **Time your rehearsal with a stopwatch.**
 
 Setup: **ChatGPT's in-app browser**, the "Do anything" bar at the bottom is where you type. Confirmed working.
 
@@ -25,7 +25,7 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 **NAVIGATE:** Start on the landing page. Scroll slowly past the Docket strip, then **click the demo card "The withheld deposit."** You are inside a live case by second 15.
 
 **SAY:**
-> **"Maya's landlord kept her twelve hundred dollar deposit, even though she passed the move-out inspection. A lawyer costs more than the deposit, and small claims court takes months. Most people facing disputes this small get no legal help at all, so many simply give up. This is Fairground: a neutral resolution room where both sides bring their own AI advocate."**
+> **"Maya's landlord kept her twelve hundred dollar deposit, even though she passed the move-out inspection. A lawyer costs more than the deposit, and small claims court takes months. Most people in her position get no legal help, so they give up. This is Fairground: a neutral resolution room where both sides bring their own AI advocate."**
 
 ---
 
@@ -43,7 +43,7 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 3. **Left panel:** *"Private mandate on file: floor $800."*
 
 **SAY:**
-> **"I just talk. My agent is using this page's WebMCP tools: reading the claim, running a private reality check, and sealing my bottom line at eight hundred dollars. The case log records that it happened, but never the number. Only I can see that. Here is the core idea: the page decides which tools exist, based on who I am and where the case stands. My agent cannot see the landlord's numbers. And there is no signing tool at all. The procedure is the tool surface."**
+> **"I just talk. My agent is using this page's WebMCP tools: reading the claim, checking my position, sealing my floor at eight hundred dollars. The log records that it happened, never the number. The page decides which tools exist, based on who I am and where the case stands. My agent cannot see the landlord's numbers. And there is no signing tool at all. The procedure is the tool surface."**
 
 ---
 
@@ -62,7 +62,7 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 **WAIT** for the landlord's acceptance and the stepper to reach **Agreement** before saying the last sentence.
 
 **SAY:**
-> **"Now both advocates negotiate within limits privately set by their humans. The offers stay sealed. If the two numbers ever overlap, the case settles instantly at the midpoint. If they do not, each side learns only whether the gap is closing. No overlap here, so a mediator controlled by neither party proposes a neutral settlement amount based on the sealed history that neither side can see. Both sides accept."**
+> **"Now both advocates negotiate within limits privately set by their humans. The offers stay sealed. If the two numbers ever overlap, the case settles instantly at the midpoint. If they do not, each side learns only whether the gap is closing. No overlap here, so a mediator controlled by neither party proposes a settlement based on the sealed history. Both sides accept."**
 
 > If your advocate accepts before you hit Stop: **"My advocate confirmed the proposal stayed within the limit I authorized, and accepted. Signing is still mine alone."**
 
@@ -79,7 +79,7 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 **END FRAMED ON:** the amount, both signatures with timestamps, and the **RECORD SEAL** together.
 
 **SAY:**
-> **"The agreement is drafted in plain language. My agent got me here, but it cannot sign. Consent is mine. I sign, the other side signs, resolved. Maya's dispute settles at [read the amount on screen], with a signed agreement and no lawyer. And this seal is a fingerprint of the signed record: anyone holding the document can use it to verify that the record has not been altered since it was signed."**
+> **"The agreement is drafted in plain language. My agent got me here, but it cannot sign. Consent is mine. I sign, the other side signs, resolved. Maya's dispute settles at [read the amount on screen], with a signed agreement and no lawyer. And this seal is a fingerprint of the signed record: anyone holding it can verify nothing was altered after signing."**
 
 > Say the real number off the screen. It varies slightly per run.
 
@@ -101,7 +101,7 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 **NAVIGATE:** Back to the landing page. **POINT AT** the Docket counter. **END ON** the hero headline, held two seconds.
 
 **SAY:**
-> **"In product testing, thirty simulated disputes ran end to end through this live deployment. Every one reached settlement, in under a minute each. They feed this public docket as anonymous totals, including the one you just watched. Two opposing agents, one neutral page, and a signature only a human can give. Justice, for disputes too small for lawyers. Fairground."**
+> **"We ran thirty simulated disputes end to end on this live deployment. Every one settled, in under a minute each. They feed this public docket, including the one you just watched. Two opposing agents, one neutral page, and a signature only a human can give. Justice, for disputes too small for lawyers. Fairground."**
 
 ---
 
