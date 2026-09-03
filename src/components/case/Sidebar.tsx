@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useWebMCP } from "use-webmcp-tool";
 import { CaseView } from "@/lib/types";
 import { timeAgo } from "@/lib/client";
 import { AgentActivity } from "@/components/AgentTools";
@@ -16,11 +17,35 @@ export function WebMCPBadge() {
   useEffect(() => {
     setSupported(typeof document !== "undefined" && "modelContext" in document && !!document.modelContext);
   }, []);
+
+  // Probe tool: proves registration actually succeeds, rather than only that
+  // document.modelContext exists. Its state is what the badge reports.
+  const probe = useWebMCP({
+    name: "fairground_check_connection",
+    description:
+      "Confirm this page's WebMCP tools are reachable. Returns a short confirmation string. Safe to call at any time.",
+    annotations: { readOnlyHint: true },
+    inputSchema: { type: "object", properties: {} },
+    execute: async () =>
+      "Connected. Fairground's case tools are registered and callable on this page.",
+  });
+
   if (supported === null) return null;
   return supported ? (
     <div className="rounded-lg border border-forest/30 bg-forest-tint px-3.5 py-2.5 text-xs text-forest-deep">
-      <span className="font-semibold">● WebMCP active.</span> This page is exposing live tools to your
-      agent. Open your browser&apos;s AI side panel and just talk to it about the case.
+      <span className="font-semibold">
+        ● WebMCP active{probe.registered ? ", tools registered" : ""}.
+      </span>{" "}
+      This page is exposing live tools to your agent. Open your browser&apos;s AI side panel and just
+      talk to it about the case.
+      {probe.error && (
+        <span className="mt-1 block font-semibold text-clay">
+          Registration error: {probe.error.message}
+        </span>
+      )}
+      {!probe.registered && !probe.error && (
+        <span className="mt-1 block text-ink-soft">Registering tools…</span>
+      )}
     </div>
   ) : (
     <div className="rounded-lg border border-line bg-paper-warm px-3.5 py-2.5 text-xs text-ink-soft">
