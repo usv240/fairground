@@ -503,7 +503,10 @@ function MediationPanel({
 
   return (
     <div className="card p-5">
-      <p className="overline-label text-brass">Neutral mediation</p>
+      <div className="flex flex-wrap items-baseline justify-between gap-2">
+        <p className="overline-label text-brass">Neutral mediation</p>
+        <p className="text-[11px] text-ink-faint">operated by the platform, controlled by neither party</p>
+      </div>
 
       {!prop || (declined && view.mediatorProposals.length < 2) ? (
         <>
@@ -605,7 +608,7 @@ function AgreementPanel({
 
       {!resolved && !a.youSigned && (
         <div className="card p-5 border-forest/40">
-          <p className="overline-label text-forest">Signature — humans only</p>
+          <p className="overline-label text-forest">Signature: humans only</p>
           <p className="mt-2 text-sm text-ink-soft leading-relaxed">
             This is the one step no agent can take. Fairground exposes no signing tool: read the agreement
             above yourself, then sign with your own hands.

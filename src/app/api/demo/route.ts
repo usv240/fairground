@@ -68,9 +68,13 @@ export async function POST(req: NextRequest) {
     c.phase = "response";
     log(c, "system", "Claim finalized. Practice counterpart is preparing a response.");
     const persona = await opponentPersona(c);
-    c.aiPersona = persona;
+    // The story stays freshly generated per click; the hidden ceiling is pinned
+    // so the demo reliably exercises the full arc (three sealed rounds, then
+    // mediation) instead of varying run to run.
+    const pinnedCeiling = Math.round(c.claim.amount * 0.66);
+    c.aiPersona = { ...persona, hiddenCeiling: pinnedCeiling };
     c.response = { position: "dispute", story: persona.story };
-    c.mandates.respondent = { limit: persona.hiddenCeiling, priorities: persona.style, setAt: Date.now() };
+    c.mandates.respondent = { limit: pinnedCeiling, priorities: persona.style, setAt: Date.now() };
     c.phase = "negotiation";
     log(c, "respondent", "Respondent (practice AI) disputed the claim and entered negotiation.");
   } else if (preset === "resolved") {
