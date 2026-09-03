@@ -42,3 +42,10 @@ next-env.d.ts
 
 .vercel
 .env*
+
+# Vendor agent docs installed by integrations, and local build notes
+.agents/
+.claude/
+skills-lock.json
+AGENTS.md
+CLAUDE.md
