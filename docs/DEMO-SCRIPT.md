@@ -118,9 +118,24 @@ Show the mechanism, do not just claim it. Four beats, about eighteen seconds. Ev
 
 ## Setup for Scene 5 (do this before you record)
 
-1. On the landing page, fill the form and **uncheck "Practice mode"**. Open the case.
-2. **Add one piece of evidence** (title and a line of description). Without it the respondent's record is empty and Beat 4 has nothing to point at.
-3. Click **"Serve claim"**. The **"Invite the other party"** card now appears in the right column. This step is required: the card stays hidden during intake.
+Use the same dispute as the demo, so the respondent's view shows a claim the viewer already recognises.
+
+1. On the landing page, scroll to **"Put it on the table"** and **uncheck "Practice mode"**. The button changes to **"Open case & get invite link"**. Fill in:
+
+   - **Case title:** `Withheld security deposit — 44 Cedar St.`
+   - **What happened:** `After two years at 44 Cedar St., I moved out on June 30 and left the unit clean. The property manager signed a move-out checklist marking every room OK, then kept my entire $1,200 deposit, claiming wall damage discovered later. State law required an itemized deduction list within 21 days; I never received one.`
+   - **Amount:** `1200`
+   - **Category:** `Security deposit`
+
+   Click **"Open case & get invite link"**.
+
+2. Inside the case, **add one piece of evidence**. Without it the respondent's record is empty and Beat 4 has nothing to point at.
+
+   - **Evidence title:** `Move-out inspection checklist`
+   - **What does it show:** `Signed by the property manager on June 30. Every room marked OK, no damage noted anywhere.`
+   - **Type:** `document`, then click **"Add to record"**
+
+3. Click **"Serve claim → get invite link"**. The **"Invite the other party"** card now appears in the right column. This step is required: the card stays hidden during intake. **Stop here.**
 4. Open a **second window** (a different browser profile, or Incognito) and leave it on any page. Do **not** paste the link yet, so the reveal is live on camera.
 5. Position the windows so you can switch between them quickly.
 
