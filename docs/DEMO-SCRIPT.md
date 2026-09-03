@@ -10,13 +10,34 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 
 ## Before you press record
 
-- Open https://fairground-umber.vercel.app and **start a fresh deposit demo** (don't reuse a case that already has offers in it).
-- Badge must read **"● WebMCP active, tools registered."** If the agent ever says it cannot reach the page, **relaunch the browser** — that fixes it.
+### The window plan
+
+| Window | Holds | Used in |
+|---|---|---|
+| **One** (main, ChatGPT's browser) | A **fresh practice deposit demo** | Scenes 1 to 4 |
+| **Two** (same browser, second window) | The **real** two-party case, served, sitting on the invite card | Scene 5, beats 1 and 2 |
+| **Three** (Incognito or another profile) | Any page. **Nothing pasted yet** | Scene 5, beats 3 and 4 |
+
+Set up windows two and three first (see "Setup for Scene 5" at the end), then open window one last so you begin recording on a clean case.
+
+### Checklist
+
+- **Use a fresh window or Incognito for Scene 1.** The landing page lists "Your cases in this browser", and after testing it fills with repeated entries that look like clutter on camera. A clean profile shows nothing there. Alternatively, keep your Scene 1 scroll above it: hero, Docket, demo cards, and stop.
+- **Start a fresh deposit demo** for Scenes 1 to 4. Never reuse a case that already has offers in it.
+- Badge must read **"● WebMCP active, tools registered."** If the agent ever says it cannot reach the page, **relaunch the browser**. That fixes it.
 - Click **"Got it"** to dismiss the blue "New here?" banner. It eats a third of the frame.
 - Zoom 110 to 125 percent. Mic on. No music.
 - Record in short clips and stitch. Cut every pause where nothing changes on screen.
 
 **Where to point for agent activity: the CASE LOG** (right column). It records each agent action without revealing the numbers, which is exactly the story. The "Your agent on this page" panel resets whenever the page reloads, so don't rely on it.
+
+### Order of operations
+
+1. Prepare the real case in **window two** (form values in "Setup for Scene 5" below), serve it, stop on the invite card.
+2. Open **window three** and leave it idle.
+3. Open **window one**, fresh, and start a practice deposit demo. Dismiss the banner.
+4. Stopwatch rehearsal, start to finish, no recording.
+5. Record Scenes 1 to 4 in window one, then Scene 5 across windows two and three, then Scene 6 back on the landing page.
 
 ---
 
