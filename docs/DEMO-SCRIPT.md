@@ -44,17 +44,38 @@ Record in short clips and stitch them. Devpost's own guidance recommends jump cu
 
 **POINT AT:** First the green **"WebMCP active"** badge in the right column, then the **"You are the claimant"** badge at the top right.
 
-**TYPE INTO THE AGENT PANEL:**
+**TYPE INTO THE CHAT** beside the page:
 > "Review my claim against the landlord and give me a private reality check. Then set my floor at 800 dollars."
 
 **POINT AT:** The **"Your agent on this page"** feed as entries appear. **Hold for two full seconds** so a judge can read one line.
 
-**POINT AT:** The green confirmation bar: **"Private mandate saved: you will not settle below $800. The other side can never see this number."**
+**POINT AT:** Once the agent finishes, these three in order:
+
+1. **Case log, right column:** *"claimant set a private negotiation mandate. (Contents sealed.)"* The platform records that it happened without recording the number.
+2. **Left panel:** *"Private mandate on file: floor $800."*
+3. **Autopilot card:** *"never concedes past your private floor of $800."*
+
+> There is no green confirmation bar in the agent path. That bar belongs to the manual form. If you set the floor by hand instead, point at the green bar and skip the three above.
 
 **SAY:**
 > **"I just talk. My agent is using this page's WebMCP tools: reading the claim, running a private reality check, and sealing my bottom line at eight hundred dollars. Every move it makes in my name shows up right here. And only I can see that number. Here is the core idea: the page decides which tools exist, based on who I am and where the case stands. My agent cannot see the landlord's numbers. It cannot skip a step. And there is no signing tool at all. The procedure is the tool surface."**
 
-> If the agent stalls, set the floor by hand in the "Your floor" field and say the same words. The feed and the sealed mandate are what matter.
+### Using ChatGPT's browser: find the chat that actually uses the page
+
+The **"Do anything"** bar with a model picker ("5.6 Sol Medium") and "Approve for me" is **agent/Codex mode**. It has a terminal and browser automation, so it tends to solve tasks *around* the page (curl, commands) instead of calling the page's tools. That still changes the case, but it is not a WebMCP demo.
+
+You want the plain chat beside the page: the **sidebar icon at the top right** (rightmost of the three icons next to minimize).
+
+**The 10-second test.** In whichever chat you are trying, send:
+
+> "What's the status of this case?"
+
+- **"Your agent on this page" fills in** (for example *"Checked case status"*) → WebMCP is being used. Record here.
+- **It stays grey** → that chat is bypassing the page. Switch chats and test again.
+
+**The feed is the ground truth.** It populates only when a tool runs through `document.modelContext` on the page. Never narrate "my agent is using this page's WebMCP tools" over a grey feed.
+
+**If no chat will use the tools**, shoot the honest variant: set the floor by hand (you get the green bar), and add one shot of **F12 → Application → WebMCP** in Chrome 152 with the flag enabled, showing the live tool list while you say *"this page registers twenty-three tools, scoped to my role and the phase of the case"*, then advance a phase and show the list change. The rest of the script is unchanged, and Autopilot still carries the negotiation.
 
 ---
 
