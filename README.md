@@ -77,7 +77,7 @@ We also **red-teamed our own courtroom**. The eval suite ([scripts/eval-toolpick
 
 Two further checks are committed: a full-lifecycle API smoke test with privacy assertions ([scripts/smoke.sh](scripts/smoke.sh)) and a registration-lifecycle test that stubs `document.modelContext` and verifies per-phase tool appearance, disappearance, and annotations ([scripts/verify-toolsurface.mjs](scripts/verify-toolsurface.mjs)).
 
-## The WebMCP surface (23 tools)
+## The WebMCP surface (24 tools)
 
 | Tool | Who | When | Notes |
 |---|---|---|---|
@@ -101,6 +101,7 @@ Two further checks are committed: a full-lifecycle API smoke test with privacy a
 | `get_settlement_draft` | both | agreement | drafting yes; a signing tool deliberately does not exist |
 | `get_agreement_summary` | both | resolved | read-only; includes the record seal |
 | `verify_settlement_record` | both | resolved | read-only; checks a presented seal against the record |
+| `export_case_record` | both | closed / resolved | read-only; court-preparation record, own sealed offers only |
 | `rate_process_fairness` | both | resolved | registered via WebMCP's declarative form API |
 | `open_dispute`, `list_my_cases` | anyone | landing page | start or resume a case conversationally |
 | `about_fairground_platform` | anyone | every page | registered via the raw `document.modelContext.registerTool` API |
@@ -121,7 +122,9 @@ Open http://localhost:3000 in a WebMCP-enabled browser. Storage is in-memory loc
 
 ## What Fairground is not
 
-Fairground structures voluntary settlement. It is not a law firm and gives no legal advice. Nothing binds anyone until both humans sign, and an unresolved case exports exactly the record a small-claims filing needs.
+Fairground structures voluntary settlement. It is not a law firm and gives no legal advice. Nothing binds anyone until both humans sign.
+
+If a case closes without agreement, either party can download a **court-preparation record**: the claim, the response, every evidence item with dates, the correspondence, their own sealed offers, the mediator's proposals and how each side answered, and an attestation that settlement was attempted in good faith before filing. The other side's sealed numbers are never included. Walking away costs nothing and leaves you better prepared than when you started.
 
 ---
 
