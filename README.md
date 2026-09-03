@@ -36,7 +36,7 @@ The missing piece was **representation**: nobody could give each side its own ad
 4. **Neutral mediation.** No overlap? An AI mediator reads the full record, including the sealed history neither side can see, and proposes one number, hard-clamped between the parties' last positions. Two proposals maximum.
 5. **Humans sign.** A plain-language agreement is drafted. No tool can sign it. Both humans sign, and the settlement is stamped with a SHA-256 **record seal** anyone can verify later at `/api/verify` or via the `verify_settlement_record` tool.
 
-Also inside: **practice mode** (an AI plays the other side), **Autopilot** (advocates run the procedure automatically, bounded by your limit), a live public **Docket** of settlements, a post-settlement **fairness rating**, and a printable court-prep record if the case closes without a deal.
+Also inside: **practice mode** (an AI plays the other side), **Autopilot** (advocates run the procedure automatically, bounded by your limit), a live public **Docket** of settlements, a post-settlement **fairness rating**, and a downloadable **court-preparation record** if the case closes without a deal.
 
 ![Case room](docs/case-room.png)
 
@@ -64,7 +64,7 @@ The key property: privacy is structural, not promised. A party's private limit a
 
 ## Why this is a strong fit for WebMCP
 
-1. **The tool surface is the procedure.** All 23 tools register per role and per phase (Chrome's official [`use-webmcp-tool`](https://www.npmjs.com/package/use-webmcp-tool) hook; the browser fires `toolchange` as the case advances). The respondent's agent has no offer tool until it files a response. Nobody can bid before their human sets a limit. There is deliberately no signing tool. Due process is enforced by tool availability, not by prompts.
+1. **The tool surface is the procedure.** All 24 tools register per role and per phase (Chrome's official [`use-webmcp-tool`](https://www.npmjs.com/package/use-webmcp-tool) hook; the browser fires `toolchange` as the case advances). The respondent's agent has no offer tool until it files a response. Nobody can bid before their human sets a limit. There is deliberately no signing tool. Due process is enforced by tool availability, not by prompts.
 2. **Two opposing agents, one neutral page.** A multiplayer WebMCP app with adversarial trust: capability-keyed links give each side its own filtered view.
 3. **Humans keep consent, with live elicitation.** The mandate guard refuses offers beyond the human's limit. An agent that wants to cross it can only raise an approval card on the human's screen (`request_mandate_override`, the spec's `requestUserInteraction` pattern implemented at the app layer). Only a human click converts it into an offer.
 4. **Both halves of the spec, defensively.** Imperative API for the case tools; the **declarative API** for the fairness form, where the annotated `<form>` itself is the tool. Tools reading the opponent's words carry `untrustedContentHint` with fenced content, per [Chrome's security guidance](https://developer.chrome.com/docs/ai/webmcp/secure-tools).
