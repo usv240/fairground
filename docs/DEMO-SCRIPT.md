@@ -1,6 +1,8 @@
 # Fairground demo: shooting script
 
-Target 2:40. Hard cap 3:00. Narration is ~300 words, which is a calm speaking pace with room to pause.
+Target 2:40 to 2:45. Hard cap 3:00. Narration is ~300 words, a calm pace with room to pause.
+
+**Time the rehearsal with a stopwatch, do not estimate.** Word count is comfortable, but agent execution, three negotiation rounds, mediation, countersigning, and navigation all consume real seconds. If the rehearsal lands past 2:45, you have two levers before cutting words: trim waiting time in editing (every pause where nothing changes on screen should be cut), and shorten Scene 2's last two sentences. Aim to finish at 2:45 so you keep fifteen seconds of genuine safety margin.
 
 Each beat maps to a judging criterion: **[I]** Potential Impact, **[W]** WebMCP Leverage, **[E]** Execution, **[C]** Creativity. All four are equally weighted, so all four appear.
 
@@ -30,7 +32,9 @@ Record in short clips and stitch them. Devpost's own guidance recommends jump cu
 **CLICK:** The middle demo card, **"The withheld deposit"**. You are inside a live case before second 15.
 
 **SAY:**
-> **"Maya's landlord kept her twelve hundred dollar deposit, even though she passed the move-out inspection. A lawyer costs more than the deposit. Small claims court takes months. Ninety-two percent of people in her position get no legal help at all, so most give up. This is Fairground: a neutral resolution room where both sides bring their own AI advocate."**
+> **"Maya's landlord kept her twelve hundred dollar deposit, even though she passed the move-out inspection. A lawyer costs more than the deposit. Small claims court takes months. Most people facing disputes this small receive no legal help at all, so many simply give up. This is Fairground: a neutral resolution room where both sides bring their own AI advocate."**
+
+> The precise statistic and its source are on screen anyway: the stats band you scroll past reads "92 percent ... (Legal Services Corporation)". Letting the page carry the citation is safer than asserting the number in narration.
 
 ---
 
@@ -41,7 +45,7 @@ Record in short clips and stitch them. Devpost's own guidance recommends jump cu
 **POINT AT:** First the green **"WebMCP active"** badge in the right column, then the **"You are the claimant"** badge at the top right.
 
 **TYPE INTO THE AGENT PANEL:**
-> "Review the claim against me and give me a private reality check. Then set my floor at 800 dollars."
+> "Review my claim against the landlord and give me a private reality check. Then set my floor at 800 dollars."
 
 **POINT AT:** The **"Your agent on this page"** feed as entries appear. **Hold for two full seconds** so a judge can read one line.
 
@@ -66,9 +70,11 @@ Record in short clips and stitch them. Devpost's own guidance recommends jump cu
 
 **POINT AT:** The mediator card: first the small label **"operated by the platform, controlled by neither party"**, then the proposed amount, then one line of its reasoning.
 
-**CLICK:** **"Accept proposal"** yourself. The other side accepts a second later and the stepper moves to **Agreement**.
+**CLICK:** **"Accept proposal"** yourself.
 
-> If your advocate accepts before you hit Stop, that is fine and still on message. Say **"my advocate checked it against my floor and accepted for me"**, then carry on to Scene 4.
+**WAIT:** Hold for the landlord's acceptance to land and the stepper to move to **Agreement**, then say the final sentence. Do not say "both sides accept" until both have.
+
+> If your advocate accepts before you hit Stop, that is fine and still on message. Say **"my advocate confirmed the proposal stayed within the limit I authorized, and accepted. Signing is still mine alone."** Then carry on to Scene 4.
 
 **SAY:**
 > **"Now both advocates negotiate within limits privately set by their humans. The offers stay sealed. If the two numbers ever overlap, the case settles instantly at the midpoint. If they do not, each side learns only whether the gap is closing. No overlap here, so a neutral mediator, the only party who can see the sealed history, proposes one fair number. Both sides accept."**
@@ -90,9 +96,9 @@ Record in short clips and stitch them. Devpost's own guidance recommends jump cu
 **POINT AT:** The final frame with the settled amount, both signatures with timestamps, and the **RECORD SEAL** all visible together.
 
 **SAY:**
-> **"The agreement is drafted in plain language. My agent got me here, but it cannot sign. Consent is mine. I sign, the other side signs, resolved. Maya's dispute is settled, with a signed agreement and no lawyer. And this seal is a fingerprint of the signed record: anyone holding the document can use it to check that the record was never altered."**
+> **"The agreement is drafted in plain language. My agent got me here, but it cannot sign. Consent is mine. I sign, the other side signs, resolved. Maya's dispute settles at [read the amount on screen], with a signed agreement and no lawyer. And this seal is a fingerprint of the signed record: anyone holding the document can use it to verify that the record has not been altered since it was signed."**
 
-> Read the real amount off the screen when you say "settled". Say the number.
+> Say the real number off the screen. Do not guess it in advance; the mediator's figure varies slightly by run.
 
 ---
 
