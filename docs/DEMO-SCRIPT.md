@@ -1,6 +1,6 @@
 # Fairground demo: shooting script
 
-Target 2:40 to 2:45. Hard cap 3:00. Narration is ~300 words. **Time your rehearsal with a stopwatch.**
+Target 2:50. Hard cap 3:00. Narration is ~340 words. **Time your rehearsal with a stopwatch** — the margin is thinner now, so cut every pause where nothing changes on screen.
 
 Setup: **ChatGPT's in-app browser**, the "Do anything" bar at the bottom is where you type. Confirmed working.
 
@@ -85,12 +85,35 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 
 ---
 
-## Scene 5 (2:20 to 2:40) Proof and close [I][E]
+## Scene 5 (2:20 to 2:35) Both sides, for real [C][E]
+
+**Prepare this before recording** (see setup below): two browser windows side by side, a real two-party case.
+
+**SHOW:** The two windows together. **POINT AT** the badge in each: **"You are the claimant"** on the left, **"You are the respondent"** on the right. Both show **"WebMCP active, tools registered."**
+
+**SAY:**
+> **"That was practice mode. In a real case you send one link. The other party opens it with their own agent, which reviews the record and gives them their own private reality check. Same table, two advocates, and neither side ever sees the other's numbers."**
+
+---
+
+## Scene 6 (2:35 to 2:55) Proof and close [I][E]
 
 **NAVIGATE:** Back to the landing page. **POINT AT** the Docket counter. **END ON** the hero headline, held two seconds.
 
 **SAY:**
-> **"Does it work? In product testing, thirty simulated disputes ran end to end through this live deployment. Every one reached settlement, in under a minute each. Each settlement feeds this public docket as anonymous totals, including the one you just watched. Two opposing agents, one neutral page, and a signature only a human can give. Justice, for disputes too small for lawyers. Fairground."**
+> **"In product testing, thirty simulated disputes ran end to end through this live deployment. Every one reached settlement, in under a minute each. Each settlement feeds this public docket as anonymous totals, including the one you just watched. Two opposing agents, one neutral page, and a signature only a human can give. Justice, for disputes too small for lawyers. Fairground."**
+
+---
+
+## Setup for Scene 5 (do this before you record)
+
+1. On the landing page, fill the form and **uncheck "Practice mode"**. Open the case.
+2. In the right column, copy the **invite link** from "Invite the other party".
+3. Open a **second window** (a different browser profile, or Incognito) and paste the link.
+4. Arrange the two windows side by side. Left shows **"You are the claimant"**, right shows **"You are the respondent"** with the claim against them and their **"Private reality check"** button.
+5. Leave both open. When you reach Scene 5, cut to this shot.
+
+> Keep it to one shot and one breath. This beat exists only to prove the two-party claim is real, not to run a second negotiation.
 
 ---
 
@@ -101,7 +124,7 @@ Beats map to judging criteria: **[I]** Impact, **[W]** WebMCP Leverage, **[E]** 
 | Agent says it cannot reach the page | Relaunch ChatGPT's browser, reopen the case |
 | Agent is slow | Cut the wait in editing. Never show dead air |
 | Autopilot settles by overlap instead of mediation | Say **"the two sealed offers overlapped, so it settled instantly at the midpoint"** and skip the mediator lines |
-| Running past 2:55 | Cut **"It cannot skip a step"** and **"The procedure is the tool surface."** Always keep **"There is no signing tool at all."** |
+| Running past 2:55 | Cut **"It cannot skip a step"** and **"The procedure is the tool surface"** from Scene 2, then the phrase **"which reviews the record and gives them their own private reality check"** from Scene 5. Always keep **"There is no signing tool at all."** |
 
 ## Two gates before upload
 
