@@ -185,7 +185,7 @@ export default function Landing() {
           <Step n={1} title="State your case" text="Describe what happened, in plain words. Your AI assistant can assemble the claim and the evidence record for you, or you can type it yourself." />
           <Step n={2} title="They join by link" text="You send the other party one link. They open it with their own assistant, which reviews your evidence and gives them an honest, private read of their chances." />
           <Step n={3} title="Sealed offers" text="Each side privately sets a true limit that the other side can never see. Up to three rounds of sealed offers follow. If the two numbers ever overlap, the case settles instantly at the midpoint." />
-          <Step n={4} title="Neutral mediator" text="Still no deal? A neutral mediator reads the full record, including the sealed history neither side can see, and puts one fair number on the table." />
+          <Step n={4} title="Neutral mediator" text="Still no deal? A neutral mediator reads the full record, including the sealed history neither side can see, and proposes a neutral settlement amount." />
           <Step n={5} title="Humans sign" text="A plain-language agreement is drafted. No AI can sign it. Two humans read it and sign it themselves. Done." />
         </div>
       </section>

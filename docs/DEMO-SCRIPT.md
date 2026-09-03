@@ -2,7 +2,7 @@
 
 Target 2:40 to 2:45. Hard cap 3:00. Narration is ~300 words, a calm pace with room to pause.
 
-**Time the rehearsal with a stopwatch, do not estimate.** Word count is comfortable, but agent execution, three negotiation rounds, mediation, countersigning, and navigation all consume real seconds. If the rehearsal lands past 2:45, you have two levers before cutting words: trim waiting time in editing (every pause where nothing changes on screen should be cut), and shorten Scene 2's last two sentences. Aim to finish at 2:45 so you keep fifteen seconds of genuine safety margin.
+**Time the rehearsal with a stopwatch, do not estimate.** Word count is comfortable, but agent execution, three negotiation rounds, mediation, countersigning, and navigation all consume real seconds. If the rehearsal lands past 2:45, you have two levers before cutting words: trim waiting time in editing (every pause where nothing changes on screen should be cut), and cut "It cannot skip a step" and "The procedure is the tool surface" from Scene 2, always keeping "There is no signing tool at all." Aim to finish at 2:45 so you keep fifteen seconds of genuine safety margin.
 
 Each beat maps to a judging criterion: **[I]** Potential Impact, **[W]** WebMCP Leverage, **[E]** Execution, **[C]** Creativity. All four are equally weighted, so all four appear.
 
@@ -17,7 +17,7 @@ Each beat maps to a judging criterion: **[I]** Potential Impact, **[W]** WebMCP 
 | Browser zoom **110 to 125 percent** | Small labels must survive YouTube compression |
 | Fresh profile, no old cases | The "New here?" banner should appear |
 | Mic on, quiet room, **no music** | Rules forbid copyrighted audio |
-| Rehearse once end to end | The deposit demo is deterministic, so the real take will match |
+| Rehearse once end to end | The deposit demo follows a reliable, rehearsed flow, so the real take will match |
 
 Record in short clips and stitch them. Devpost's own guidance recommends jump cuts and trimming dead air.
 
@@ -77,7 +77,7 @@ Record in short clips and stitch them. Devpost's own guidance recommends jump cu
 > If your advocate accepts before you hit Stop, that is fine and still on message. Say **"my advocate confirmed the proposal stayed within the limit I authorized, and accepted. Signing is still mine alone."** Then carry on to Scene 4.
 
 **SAY:**
-> **"Now both advocates negotiate within limits privately set by their humans. The offers stay sealed. If the two numbers ever overlap, the case settles instantly at the midpoint. If they do not, each side learns only whether the gap is closing. No overlap here, so a neutral mediator, the only party who can see the sealed history, proposes one fair number. Both sides accept."**
+> **"Now both advocates negotiate within limits privately set by their humans. The offers stay sealed. If the two numbers ever overlap, the case settles instantly at the midpoint. If they do not, each side learns only whether the gap is closing. No overlap here, so a mediator controlled by neither party proposes a neutral settlement amount based on the sealed history that neither side can see. Both sides accept."**
 
 ---
 
@@ -121,7 +121,7 @@ Record in short clips and stitch them. Devpost's own guidance recommends jump cu
 |---|---|
 | Autopilot settles by overlap instead of mediation | Say **"the two sealed offers overlapped, so it settled instantly at the midpoint"** and skip the mediator sentences |
 | Agent phrasing is odd in Scene 2 | Re-record that clip only; agents vary between runs |
-| Running past 2:55 | Cut the last two sentences of Scene 2. The line **"there is no signing tool at all"** must survive |
+| Running past 2:55 | Cut **"It cannot skip a step"** and **"The procedure is the tool surface."** Always preserve **"There is no signing tool at all."** |
 | A model call is slow | Cut the wait in editing. Never show dead air |
 
 ## The muted test
